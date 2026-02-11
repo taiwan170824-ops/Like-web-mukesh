@@ -5,88 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Like Booster Pro | IND Server</title>
     <style>
-        :root {
-            --primary: #6366f1;
-            --dark: #0f172a;
-            --card: #1e293b;
-            --text: #f8fafc;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--dark);
-            color: var(--text);
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-        }
-
-        .container {
-            width: 90%;
-            max-width: 450px;
-            background: var(--card);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-        }
-
+        :root { --primary: #6366f1; --dark: #0f172a; --card: #1e293b; --text: #f8fafc; }
+        body { font-family: sans-serif; background: var(--dark); color: var(--text); margin: 0; display: flex; justify-content: center; align-items: center; min-height: 100vh; text-align: center; }
+        .container { width: 90%; max-width: 450px; background: var(--card); padding: 2rem; border-radius: 20px; box-shadow: 0 20px 25px rgba(0,0,0,0.3); }
         .hidden { display: none; }
-
-        h1 { color: var(--primary); margin-bottom: 10px; }
-        p { color: #94a3b8; font-size: 0.9rem; }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            background: #0f172a;
-            color: white;
-            box-sizing: border-box;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            margin: 8px 0;
-            border: none;
-            border-radius: 8px;
-            background: var(--primary);
-            color: white;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s, background 0.3s;
-        }
-
-        button:hover { background: #4f46e5; transform: translateY(-2px); }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #334155; background: #0f172a; color: white; box-sizing: border-box; }
+        button { width: 100%; padding: 12px; margin: 8px 0; border: none; border-radius: 8px; background: var(--primary); color: white; font-weight: bold; cursor: pointer; }
         button.secondary { background: #475569; }
-
-        .status-box {
-            margin-top: 15px;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 0.85rem;
-            line-height: 1.6;
-        }
-
-        .success { background: #064e3b; border: 1px solid #059669; color: #34d399; }
-        .error { background: #450a0a; border: 1px solid #dc2626; color: #f87171; }
-
-        /* Timer Animation */
-        .loader {
-            border: 4px solid #334155;
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-            margin: 15px auto;
-        }
-
+        .status-box { margin-top: 15px; padding: 15px; border-radius: 10px; font-size: 0.85rem; }
+        .success { background: #064e3b; color: #34d399; border: 1px solid #059669; }
+        .error { background: #450a0a; color: #f87171; border: 1px solid #dc2626; }
+        .loader { border: 4px solid #334155; border-top: 4px solid var(--primary); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 15px auto; }
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
@@ -95,25 +24,22 @@
 <div class="container">
     <div id="welcome-page">
         <h1>Welcome! 🖐️</h1>
-        <p>Yeh website aapko game me free likes dene me madad karti hai. Ise use karna bahut aasaan hai. Bas login karein aur apna UID dalein!</p>
-        <button onclick="showPage('auth-page')">Register / Login</button>
+        <p>Yeh website aapko free likes dene me madad karti hai. Register karke shuru karein.</p>
+        <button onclick="showPage('auth-page')">Login / Register</button>
     </div>
 
     <div id="auth-page" class="hidden">
-        <h2 id="auth-title">Create Account</h2>
-        <input type="text" id="username" placeholder="Choose Username">
-        <input type="password" id="password" placeholder="Create Password">
-        <button onclick="handleAuth()">Submit & Enter Dashboard</button>
-        <button class="secondary" onclick="showPage('welcome-page')">Back</button>
+        <h2>Account Section</h2>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button onclick="handleAuth()">Submit</button>
     </div>
 
     <div id="dashboard" class="hidden">
         <h3>Hello, <span id="user-display" style="color:var(--primary)">User</span>!</h3>
-        <p>Select an option below:</p>
         <button onclick="checkServer()">🚀 Send 200 Like</button>
-        <button class="secondary" onclick="window.location.href='https://t.me/YOUR_TG_CHANNEL'">📢 Customer Support</button>
-        <button class="secondary" onclick="window.location.href='https://t.me/mukesh_business_bot'">🛠️ Admin ID</button>
-        <button style="background: #b45309;" onclick="alert('VIP Plan is coming soon!')">💎 VIP Plan</button>
+        <button class="secondary" onclick="window.location.href='https://t.me/YOUR_TG_CHANNEL'">📢 Telegram Channel</button>
+        <button class="secondary" onclick="window.location.href='https://t.me/YOUR_ADMIN_ID'">🛠️ Admin Support</button>
     </div>
 
     <div id="action-page" class="hidden">
@@ -127,87 +53,65 @@
         </div>
 
         <div id="api-result" class="status-box hidden"></div>
-        
-        <button class="secondary" onclick="showPage('dashboard')" style="margin-top: 15px;">Back to Dashboard</button>
+        <button class="secondary" onclick="showPage('dashboard')" style="margin-top: 15px;">Back</button>
     </div>
 </div>
 
 <script>
-    // PAGE NAVIGATION LOGIC
     function showPage(pageId) {
-        document.getElementById('welcome-page').classList.add('hidden');
-        document.getElementById('auth-page').classList.add('hidden');
-        document.getElementById('dashboard').classList.add('hidden');
-        document.getElementById('action-page').classList.add('hidden');
+        const pages = ['welcome-page', 'auth-page', 'dashboard', 'action-page'];
+        pages.forEach(p => document.getElementById(p).classList.add('hidden'));
         document.getElementById(pageId).classList.remove('hidden');
     }
 
-    // AUTHENTICATION LOGIC
     function handleAuth() {
         const user = document.getElementById('username').value;
-        const pass = document.getElementById('password').value;
-
-        if(user === "" || pass === "") {
-            alert("Username aur Password dono bhariye!");
-        } else {
+        if(user) {
             document.getElementById('user-display').innerText = user;
             showPage('dashboard');
-        }
+        } else { alert("Username bhariye!"); }
     }
 
-    // SERVER CHECK NOTIFICATION
     function checkServer() {
-        if(confirm("This program is only for IND Server. Press OK to continue.")) {
-            showPage('action-page');
-        }
+        if(confirm("This is only for IND Server. Continue?")) showPage('action-page');
     }
 
-    // API HIT & RESPONSE LOGIC
     async function hitLikeApi() {
         const uid = document.getElementById('uid-input').value;
         const processDiv = document.getElementById('processing');
         const resultDiv = document.getElementById('api-result');
 
-        if(!uid) {
-            alert("Please enter a valid UID");
-            return;
-        }
+        if(!uid) { alert("UID missing!"); return; }
 
-        // Reset and Show Timer
         resultDiv.classList.add('hidden');
         processDiv.classList.remove('hidden');
 
         try {
-            const apiUrl = `https://mukesh-ult-like.vercel.app/like?uid=${uid}&region=ind&key=UDIT`;
-            const response = await fetch(apiUrl);
-            const data = await response.json();
+            // PROXY ADDED HERE TO FIX THE ERROR IN YOUR SCREENSHOT
+            const target = `https://mukesh-ult-like.vercel.app/like?uid=${uid}&region=ind&key=UDIT`;
+            const proxy = `https://api.allorigins.win/get?url=${encodeURIComponent(target)}`;
+
+            const response = await fetch(proxy);
+            const proxyData = await response.json();
+            const data = JSON.parse(proxyData.contents); // Extracting original API data
 
             processDiv.classList.add('hidden');
             resultDiv.classList.remove('hidden');
 
-            // Logic: Agar LikesGivenByAPI 0 hai to limit over dikhaye
             if (data.LikesGivenByAPI > 0) {
                 resultDiv.className = "status-box success";
-                resultDiv.innerHTML = `
-                    <strong>✅ SUCCESS!</strong><br>
-                    👤 Player: ${data.PlayerNickname}<br>
-                    📈 Likes Sent: ${data.LikesGivenByAPI}<br>
-                    🔥 Total Likes: ${data.LikesafterCommand}<br>
-                    🛡️ Region: ${data.Region}
-                `;
+                resultDiv.innerHTML = `<strong>✅ SUCCESS!</strong><br>Player: ${data.PlayerNickname}<br>Likes Sent: ${data.LikesGivenByAPI}<br>Total: ${data.LikesafterCommand}`;
             } else {
                 resultDiv.className = "status-box error";
-                resultDiv.innerHTML = `<strong>❌ FAILED:</strong> Daily 200 limit over for this UID.`;
+                resultDiv.innerHTML = `<strong>❌ FAILED:</strong> Daily 200 limit over!`;
             }
-
-        } catch (error) {
+        } catch (e) {
             processDiv.classList.add('hidden');
             resultDiv.classList.remove('hidden');
             resultDiv.className = "status-box error";
-            resultDiv.innerHTML = "<strong>⚠️ ERROR:</strong> API unreachable. Check connection.";
+            resultDiv.innerHTML = "<strong>⚠️ ERROR:</strong> API is offline or UID is invalid.";
         }
     }
 </script>
-
 </body>
 </html>
