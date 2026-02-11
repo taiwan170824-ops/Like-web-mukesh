@@ -3,50 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MUKESH VIP PANEL | IND SERVER</title>
+    <title>MUKESH VIP PANEL</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00f2fe; --accent: #4facfe; --bg: #05070a; --card: rgba(22, 27, 34, 0.9); --success: #00ff88; --admin-color: #ff0055; }
+        :root { --primary: #00f2fe; --bg: #05070a; --card: #161b22; --success: #00ff88; --admin-clr: #ff0055; }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         
-        * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: white; min-height: 100vh; display: flex; justify-content: center; align-items: center; overflow-x: hidden; background-image: radial-gradient(circle at top right, rgba(0, 242, 254, 0.05), transparent); }
+        /* Stats Badge */
+        .stats-badge { position: fixed; top: 20px; left: 20px; background: var(--card); border: 1px solid var(--primary); padding: 10px; border-radius: 10px; z-index: 100; }
+        .stats-badge span { display: block; font-size: 10px; color: var(--primary); }
 
-        /* Stats Badge (Agal-Bagal) */
-        .stats-badge { position: fixed; top: 20px; left: 20px; background: var(--card); border: 1px solid var(--primary); padding: 10px 15px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,242,254,0.2); z-index: 100; }
-        .stats-badge span { display: block; font-size: 10px; color: var(--primary); font-family: 'Orbitron'; }
-        .stats-badge b { font-size: 18px; color: #fff; }
+        .card { background: var(--card); padding: 30px; border-radius: 20px; width: 95%; max-width: 400px; text-align: center; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        h1 { font-family: 'Orbitron', sans-serif; color: var(--primary); font-size: 22px; margin-bottom: 20px; }
 
-        .card { background: var(--card); backdrop-filter: blur(10px); padding: 35px; border-radius: 28px; width: 95%; max-width: 440px; text-align: center; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 25px 50px rgba(0,0,0,0.5); position: relative; }
-        h1 { font-family: 'Orbitron', sans-serif; color: var(--primary); font-size: 24px; text-shadow: 0 0 15px var(--primary); margin-bottom: 25px; letter-spacing: 2px; }
-
-        input { width: 100%; padding: 15px; margin: 12px 0; border-radius: 12px; border: 1px solid #30363d; background: rgba(13, 17, 23, 0.8); color: white; outline: none; transition: 0.3s; }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 10px rgba(0, 242, 254, 0.3); }
-
-        .btn { width: 100%; padding: 15px; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; margin-top: 10px; transition: 0.4s; text-transform: uppercase; letter-spacing: 1px; }
-        .btn-main { background: linear-gradient(45deg, var(--accent), var(--primary)); color: #000; box-shadow: 0 5px 20px rgba(0, 242, 254, 0.4); }
-        .btn-main:hover { transform: translateY(-3px); filter: brightness(1.2); }
+        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: white; outline: none; }
+        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
+        .btn-main { background: linear-gradient(45deg, #4facfe, #00f2fe); color: #000; }
         
-        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 25px 0; }
-        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 12px; }
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 11px; }
 
-        /* Progress Bar */
-        .prog-cont { width: 100%; background: #0d1117; border-radius: 20px; height: 12px; margin: 20px 0; display: none; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); }
-        .prog-bar { width: 0%; height: 100%; background: var(--primary); box-shadow: 0 0 20px var(--primary); transition: width 0.3s; }
+        .prog-cont { width: 100%; background: #0d1117; border-radius: 10px; height: 10px; margin: 15px 0; display: none; overflow: hidden; }
+        .prog-bar { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s; }
 
-        /* Response Box */
-        #api-response { margin-top: 20px; text-align: left; padding: 20px; border-radius: 15px; display: none; background: rgba(0, 242, 254, 0.05); border: 1px solid var(--primary); animation: slideUp 0.5s ease; }
-        .res-line { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 4px; }
-
-        /* Real History */
-        .history { margin-top: 30px; text-align: left; }
-        .history-h { font-size: 12px; color: var(--primary); font-family: 'Orbitron'; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-        .h-item { background: rgba(255,255,255,0.03); padding: 12px; border-radius: 12px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; border-left: 4px solid var(--success); font-size: 12px; }
-
-        /* Admin Dashboard View */
-        #admin-view { display: none; background: rgba(255, 0, 85, 0.05); border: 1px solid var(--admin-color); padding: 20px; border-radius: 20px; margin-top: 20px; text-align: left; }
-
+        #api-response { margin-top: 15px; text-align: left; padding: 15px; border-radius: 10px; display: none; background: rgba(0,242,254,0.05); border: 1px solid var(--primary); font-size: 13px; }
+        
+        .history-item { background: #0d1117; padding: 10px; border-radius: 8px; margin-bottom: 5px; display: flex; justify-content: space-between; font-size: 11px; border-left: 3px solid var(--success); }
+        
+        /* Admin Section */
+        #admin-box { display: none; background: rgba(255,0,85,0.1); border: 1px solid var(--admin-clr); padding: 15px; border-radius: 10px; margin-top: 15px; text-align: left; }
         .hidden { display: none; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
@@ -57,80 +43,59 @@
     </div>
 
     <div id="auth-screen" class="card">
-        <h1>MUKESH VIP</h1>
+        <h1>MUKESH PANEL</h1>
         <div id="login-form">
             <input type="text" id="user" placeholder="Username">
             <input type="password" id="pass" placeholder="Password">
-            <button class="btn btn-main" onclick="handleLogin()">ENTER PANEL</button>
-            <p style="font-size:12px; margin-top:20px; color:#8b949e;">Don't have access? <span onclick="toggleAuth()" style="color:var(--primary); cursor:pointer;">Register</span></p>
+            <button class="btn btn-main" onclick="handleLogin()">Login</button>
+            <p onclick="toggleAuth()" style="font-size:12px; cursor:pointer; margin-top:15px;">Register</p>
         </div>
         <div id="register-form" class="hidden">
-            <input type="text" id="reg-user" placeholder="Choose Username">
-            <input type="password" id="reg-pass" placeholder="Choose Password">
-            <button class="btn btn-main" onclick="handleRegister()">CREATE ACCESS</button>
-            <p style="font-size:12px; margin-top:20px; color:#8b949e;">Already VIP? <span onclick="toggleAuth()" style="color:var(--primary); cursor:pointer;">Login</span></p>
+            <input type="text" id="reg-user" placeholder="Create Username">
+            <input type="password" id="reg-pass" placeholder="Create Password">
+            <button class="btn btn-main" onclick="handleRegister()">Register</button>
+            <p onclick="toggleAuth()" style="font-size:12px; cursor:pointer; margin-top:15px;">Back to Login</p>
         </div>
     </div>
 
     <div id="dashboard-screen" class="card hidden">
-        <h2 id="welcome-msg" style="font-size: 18px; margin:0; color:var(--primary);">DASHBOARD</h2>
+        <h2 id="welcome-msg" style="font-size:16px; color:var(--primary);">WELCOME</h2>
         
         <div class="btn-grid">
-            <button class="btn btn-main" onclick="showPanel()">🚀 START LIKES</button>
-            <button class="btn btn-outline" onclick="window.open('https://t.me/YourChannel')">SUPPORT</button>
-            <button class="btn btn-outline" onclick="window.open('https://t.me/YourChannel')">BUY VIP</button>
-            <button id="admin-btn" class="btn btn-outline hidden" style="border-color:var(--admin-color); color:var(--admin-color);" onclick="showAdmin()">ADMIN PANEL</button>
+            <button class="btn btn-main" onclick="showPanel()">Send Like</button>
+            <button id="support-link" class="btn btn-outline" onclick="window.open(supportURL)">Support</button>
+            <button id="plan-link" class="btn btn-outline" onclick="window.open(planURL)">VIP Plan</button>
+            <button id="admin-btn" class="btn btn-outline hidden" style="color:var(--admin-clr); border-color:var(--admin-clr);" onclick="toggleAdmin()">Admin Settings</button>
+        </div>
+
+        <div id="admin-box">
+            <p style="font-size:11px; color:var(--admin-clr); margin:0 0 10px;">ADMIN: Edit Button Links</p>
+            <input type="text" id="edit-support" placeholder="New Support URL">
+            <input type="text" id="edit-plan" placeholder="New VIP Plan URL">
+            <button class="btn btn-main" style="font-size:10px; padding:5px;" onclick="saveLinks()">Save Changes</button>
         </div>
 
         <div id="panel-area" class="hidden">
-            <input type="number" id="player-uid" placeholder="ENTER FF UID">
-            <button id="submitBtn" class="btn btn-main" onclick="processOrder()">GET 200 LIKES</button>
-            
-            <div class="prog-cont" id="progCont">
-                <div class="prog-bar" id="progBar"></div>
-            </div>
-            <p id="timerText" class="hidden" style="font-size: 12px; color: var(--primary);">ESTABLISHING CONNECTION: <span id="timer">0</span>s</p>
-
+            <input type="number" id="player-uid" placeholder="Enter UID">
+            <button id="submitBtn" class="btn btn-main" onclick="processOrder()">Get Likes</button>
+            <div class="prog-cont" id="progCont"><div class="prog-bar" id="progBar"></div></div>
             <div id="api-response"></div>
         </div>
 
-        <div id="admin-view">
-            <h3 style="color:var(--admin-color); margin-top:0; font-size:14px;">ADMIN CONTROL CENTER</h3>
-            <p style="font-size:12px;">Total Requests: <b id="stat-req">0</b></p>
-            <p style="font-size:12px;">Success Orders: <b id="stat-ok">0</b></p>
-            <button class="btn btn-outline" style="font-size:10px;" onclick="location.reload()">LOGOUT ADMIN</button>
-        </div>
-
-        <div class="history">
-            <div class="history-h">🟢 RECENT SUCCESSFUL ORDERS</div>
-            <div id="real-history">
-                <div style="font-size:10px; color:gray; text-align:center;">Waiting for new orders...</div>
-            </div>
+        <div style="margin-top:20px; text-align:left;">
+            <p style="font-size:12px; color:var(--primary);">RECENT ORDERS</p>
+            <div id="real-history"></div>
         </div>
     </div>
 
     <script>
-        // --- Admin & Stats Logic ---
-        let totalUsers = parseInt(localStorage.getItem('total_users_count')) || 142; 
-        let historyData = JSON.parse(localStorage.getItem('real_history')) || [];
-        let totalReqs = 0;
-        let okReqs = 0;
+        let supportURL = localStorage.getItem('s_url') || 'https://t.me/YourChannel';
+        let planURL = localStorage.getItem('p_url') || 'https://t.me/YourChannel';
+        let users = parseInt(localStorage.getItem('real_users')) || 0;
+        let history = JSON.parse(localStorage.getItem('r_hist')) || [];
 
-        document.getElementById('user-count').innerText = totalUsers;
+        document.getElementById('user-count').innerText = users;
 
-        function updateHistory() {
-            const hDiv = document.getElementById('real-history');
-            if(historyData.length > 0) {
-                hDiv.innerHTML = historyData.map(i => `
-                    <div class="h-item">
-                        <span><b>${i.name}</b> (${i.uid})</span>
-                        <span style="color:var(--success)">+${i.likes} LIKES</span>
-                    </div>
-                `).join('');
-            }
-        }
-
-        // --- Auth Logic ---
         function toggleAuth() {
             document.getElementById('login-form').classList.toggle('hidden');
             document.getElementById('register-form').classList.toggle('hidden');
@@ -140,72 +105,59 @@
             const u = document.getElementById('reg-user').value;
             const p = document.getElementById('reg-pass').value;
             if(u && p) {
-                localStorage.setItem('u_'+u, p);
-                totalUsers++;
-                localStorage.setItem('total_users_count', totalUsers);
-                document.getElementById('user-count').innerText = totalUsers;
-                alert("ACCESS GRANTED! PLEASE LOGIN.");
-                toggleAuth();
+                localStorage.setItem('user_'+u, p);
+                users++;
+                localStorage.setItem('real_users', users);
+                document.getElementById('user-count').innerText = users;
+                alert("Registered!"); toggleAuth();
             }
         }
 
         function handleLogin() {
             const u = document.getElementById('user').value;
             const p = document.getElementById('pass').value;
-            
-            // SECRET ADMIN LOGIN (Username: admin | Pass: MUKESH@786)
-            if(u === "admin" && p === "MUKESH@786") {
+            if(u === "admin" && p === "ADMIN123") {
                 document.getElementById('admin-btn').classList.remove('hidden');
-                loginSuccess("ADMIN");
-                return;
-            }
-
-            if(localStorage.getItem('u_'+u) === p) {
-                loginSuccess(u);
-            } else { alert("ACCESS DENIED: WRONG CREDENTIALS"); }
+                enterDash("ADMIN");
+            } else if(localStorage.getItem('user_'+u) === p) {
+                enterDash(u);
+            } else { alert("Wrong Password!"); }
         }
 
-        function loginSuccess(name) {
+        function enterDash(name) {
             document.getElementById('auth-screen').classList.add('hidden');
             document.getElementById('dashboard-screen').classList.remove('hidden');
-            document.getElementById('welcome-msg').innerText = "WELCOME, " + name;
-            updateHistory();
+            document.getElementById('welcome-msg').innerText = "HI, " + name;
+            renderHistory();
         }
 
-        function showAdmin() {
-            document.getElementById('admin-view').style.display = 'block';
-            document.getElementById('panel-area').style.display = 'none';
+        function toggleAdmin() { document.getElementById('admin-box').style.display = 'block'; }
+        
+        function saveLinks() {
+            const s = document.getElementById('edit-support').value;
+            const p = document.getElementById('edit-plan').value;
+            if(s) { supportURL = s; localStorage.setItem('s_url', s); }
+            if(p) { planURL = p; localStorage.setItem('p_url', p); }
+            alert("Links Updated!");
+            document.getElementById('admin-box').style.display = 'none';
         }
 
-        function showPanel() {
-            alert("SERVER STATUS: IND REGION CONNECTED");
-            document.getElementById('panel-area').classList.remove('hidden');
-            document.getElementById('admin-view').style.display = 'none';
-        }
+        function showPanel() { document.getElementById('panel-area').classList.remove('hidden'); }
 
-        // --- API & Process Logic ---
         async function processOrder() {
             const uid = document.getElementById('player-uid').value;
-            if(!uid) return alert("UID REQUIRED");
-
+            if(!uid) return;
             const btn = document.getElementById('submitBtn');
             const progBar = document.getElementById('progBar');
             const progCont = document.getElementById('progCont');
             const respBox = document.getElementById('api-response');
-            const timerText = document.getElementById('timerText');
 
             btn.disabled = true;
             progCont.style.display = 'block';
-            timerText.classList.remove('hidden');
-            respBox.style.display = 'none';
+            progBar.style.width = '0%';
             
-            let count = 0;
             let width = 0;
-            let timer = setInterval(() => { 
-                count++; 
-                document.getElementById('timer').innerText = count;
-                if(width < 95) { width += 1; progBar.style.width = width + '%'; }
-            }, 300);
+            let iv = setInterval(() => { width += 2; progBar.style.width = width + '%'; if(width>=90) clearInterval(iv); }, 200);
 
             try {
                 const target = `https://mukesh-ult-like.vercel.app/like?uid=${uid}&region=ind&key=UDIT`;
@@ -213,44 +165,24 @@
                 const json = await response.json();
                 const data = JSON.parse(json.contents);
 
-                clearInterval(timer);
+                clearInterval(iv);
                 progBar.style.width = '100%';
-                totalReqs++;
-                
                 setTimeout(() => {
                     progCont.style.display = 'none';
-                    timerText.classList.add('hidden');
                     respBox.style.display = 'block';
                     btn.disabled = false;
+                    respBox.innerHTML = `<b>NICKNAME:</b> ${data.PlayerNickname}<br><b>LEVEL:</b> ${data.Level}<br><b>LIKES SENT:</b> +${data.LikesGivenByAPI}<br><b>STATUS:</b> SUCCESS`;
+                    
+                    history.unshift({name: data.PlayerNickname, uid: uid, likes: data.LikesGivenByAPI});
+                    if(history.length > 5) history.pop();
+                    localStorage.setItem('r_hist', JSON.stringify(history));
+                    renderHistory();
+                }, 500);
+            } catch (e) { alert("Server Busy!"); btn.disabled = false; }
+        }
 
-                    // Show detailed info
-                    respBox.innerHTML = `
-                        <div class="res-line"><span>NICKNAME:</span> <b>${data.PlayerNickname}</b></div>
-                        <div class="res-line"><span>LEVEL:</span> <b>${data.Level}</b></div>
-                        <div class="res-line"><span>REGION:</span> <b>${data.Region}</b></div>
-                        <div class="res-line"><span>LIKES ADDED:</span> <b style="color:var(--success)">+${data.LikesGivenByAPI}</b></div>
-                        <div class="res-line"><span>NEW TOTAL:</span> <b>${data.LikesafterCommand}</b></div>
-                        <div style="font-size:10px; color:gray; text-align:center; margin-top:10px;">ORDER COMPLETED SUCCESSFULLY</div>
-                    `;
-
-                    if(data.status === 2) okReqs++;
-                    document.getElementById('stat-req').innerText = totalReqs;
-                    document.getElementById('stat-ok').innerText = okReqs;
-
-                    // Save Real History
-                    const entry = { name: data.PlayerNickname, uid: uid, likes: data.LikesGivenByAPI };
-                    historyData.unshift(entry);
-                    if(historyData.length > 5) historyData.pop();
-                    localStorage.setItem('real_history', JSON.stringify(historyData));
-                    updateHistory();
-
-                }, 800);
-            } catch (err) {
-                clearInterval(timer);
-                alert("SERVER BUSY: RETRYING AUTOMATICALLY...");
-                btn.disabled = false;
-                processOrder();
-            }
+        function renderHistory() {
+            document.getElementById('real-history').innerHTML = history.map(i => `<div class="history-item"><span>${i.name} (${i.uid})</span><span style="color:var(--success)">+${i.likes}</span></div>`).join('');
         }
     </script>
 </body>
