@@ -3,38 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MUKESH VIP PANEL</title>
+    <title>MUKESH VIP | REAL PANEL</title>
     <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #00f2fe; --bg: #05070a; --card: #161b22; --success: #00ff88; --admin-clr: #ff0055; }
-        body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        :root { --primary: #00f2fe; --accent: #4facfe; --bg: #05070a; --card: #161b22; --success: #4ade80; --admin-clr: #ff0055; }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow-x: hidden; }
         
-        /* Stats Badge */
-        .stats-badge { position: fixed; top: 20px; left: 20px; background: var(--card); border: 1px solid var(--primary); padding: 10px; border-radius: 10px; z-index: 100; box-shadow: 0 0 10px var(--primary); }
+        /* Left Side Stats (Real) */
+        .stats-badge { position: fixed; top: 20px; left: 20px; background: var(--card); border: 1px solid var(--primary); padding: 10px 15px; border-radius: 12px; box-shadow: 0 0 15px rgba(0,242,254,0.2); z-index: 100; }
         .stats-badge span { display: block; font-size: 10px; color: var(--primary); font-family: 'Orbitron'; }
+        .stats-badge b { font-size: 18px; color: #fff; }
 
-        .card { background: var(--card); padding: 30px; border-radius: 20px; width: 95%; max-width: 400px; text-align: center; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { font-family: 'Orbitron', sans-serif; color: var(--primary); font-size: 22px; margin-bottom: 20px; text-shadow: 0 0 5px var(--primary); }
-
-        input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: white; outline: none; }
-        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; transition: 0.3s; }
-        .btn-main { background: linear-gradient(45deg, #4facfe, #00f2fe); color: #000; }
-        .btn-main:hover { transform: scale(1.02); }
+        .card { background: var(--card); padding: 30px; border-radius: 24px; width: 95%; max-width: 420px; text-align: center; box-shadow: 0 0 25px rgba(0, 242, 254, 0.15); border: 1px solid rgba(255,255,255,0.05); }
+        h1 { font-family: 'Orbitron', sans-serif; color: var(--primary); font-size: 22px; text-shadow: 0 0 10px var(--primary); margin-bottom: 20px; }
         
-        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
+        input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1px solid #30363d; background: #0d1117; color: white; box-sizing: border-box; outline: none; }
+        input:focus { border-color: var(--primary); }
+        
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; text-transform: uppercase; }
+        .btn-main { background: linear-gradient(45deg, var(--accent), var(--primary)); color: #000; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3); }
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
         .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 11px; }
-
-        .prog-cont { width: 100%; background: #0d1117; border-radius: 10px; height: 10px; margin: 15px 0; display: none; overflow: hidden; }
-        .prog-bar { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s; }
-
-        #api-response { margin-top: 15px; text-align: left; padding: 15px; border-radius: 10px; display: none; background: rgba(0,242,254,0.05); border: 1px solid var(--primary); font-size: 14px; line-height: 1.6; }
         
-        .history-item { background: #0d1117; padding: 10px; border-radius: 8px; margin-bottom: 5px; display: flex; justify-content: space-between; font-size: 11px; border-left: 3px solid var(--success); }
+        .progress-container { width: 100%; background: #0d1117; border-radius: 10px; margin: 20px 0; height: 10px; overflow: hidden; display: none; }
+        .progress-bar { width: 0%; height: 100%; background: var(--primary); box-shadow: 0 0 15px var(--primary); transition: width 0.3s; }
+
+        #api-response { margin-top: 20px; text-align: left; padding: 15px; border-radius: 15px; font-size: 13px; display: none; line-height: 1.8; background: rgba(0, 242, 254, 0.05); border: 1px solid var(--primary); }
+        .response-item { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 2px 0; }
         
-        /* Admin Section */
-        #admin-box { display: none; background: rgba(255,0,85,0.1); border: 1px solid var(--admin-clr); padding: 15px; border-radius: 10px; margin-top: 15px; text-align: left; animation: fadeIn 0.5s; }
+        /* Admin Box */
+        #admin-box { display: none; background: rgba(255,0,85,0.1); border: 1px solid var(--admin-clr); padding: 15px; border-radius: 15px; margin-top: 15px; text-align: left; }
+        
+        .history-item { font-size: 11px; background: rgba(255,255,255,0.03); padding: 10px; border-radius: 10px; margin-bottom: 8px; display: flex; justify-content: space-between; border-left: 3px solid var(--success); }
         .hidden { display: none; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -44,62 +45,61 @@
         <b id="user-count">0</b>
     </div>
 
+    <audio id="successSound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"></audio>
+
     <div id="auth-screen" class="card">
         <h1>MUKESH PANEL</h1>
         <div id="login-form">
             <input type="text" id="user" placeholder="Username">
             <input type="password" id="pass" placeholder="Password">
             <button class="btn btn-main" onclick="handleLogin()">Login</button>
-            <p onclick="toggleAuth()" style="font-size:12px; cursor:pointer; margin-top:15px; color:var(--primary);">Don't have account? Register</p>
+            <p onclick="toggleAuth()" style="cursor:pointer; font-size:12px; margin-top:15px;">New? <b style="color:var(--primary)">Register</b></p>
         </div>
         <div id="register-form" class="hidden">
-            <input type="text" id="reg-user" placeholder="Create Username">
-            <input type="password" id="reg-pass" placeholder="Create Password">
-            <button class="btn btn-main" onclick="handleRegister()">Register Account</button>
-            <p onclick="toggleAuth()" style="font-size:12px; cursor:pointer; margin-top:15px; color:var(--primary);">Already have account? Login</p>
+            <input type="text" id="reg-user" placeholder="Username">
+            <input type="password" id="reg-pass" placeholder="Password">
+            <button class="btn btn-main" onclick="handleRegister()">Register</button>
+            <p onclick="toggleAuth()" style="cursor:pointer; font-size:12px; margin-top:15px;">Login</p>
         </div>
     </div>
 
     <div id="dashboard-screen" class="card hidden">
-        <h2 id="welcome-msg" style="font-size:16px; color:var(--primary);">WELCOME</h2>
-        
+        <h2 id="welcome-msg">Welcome!</h2>
         <div class="btn-grid">
-            <button class="btn btn-main" onclick="showPanel()">Send Like</button>
-            <button id="support-link" class="btn btn-outline" onclick="window.open(supportURL)">Support</button>
-            <button id="plan-link" class="btn btn-outline" onclick="window.open(planURL)">VIP Plan</button>
-            <button id="admin-btn" class="btn btn-outline hidden" style="color:var(--admin-clr); border-color:var(--admin-clr);" onclick="toggleAdmin()">Admin Settings</button>
+            <button class="btn btn-main" onclick="openPanel()">Send 200 Like</button>
+            <button id="support-btn" class="btn btn-outline" onclick="window.open(s_url, '_blank')">Support</button>
+            <button id="vip-btn" class="btn btn-outline" onclick="window.open(v_url, '_blank')">VIP Plan</button>
+            <button id="admin-btn" class="btn btn-outline hidden" style="color:var(--admin-clr); border-color:var(--admin-clr);" onclick="toggleAdmin()">Admin Edit</button>
         </div>
 
         <div id="admin-box">
-            <p style="font-size:11px; color:var(--admin-clr); margin:0 0 10px; font-weight:bold;">ADMIN: EDIT SYSTEM LINKS</p>
-            <input type="text" id="edit-support" placeholder="Enter New Support URL">
-            <input type="text" id="edit-plan" placeholder="Enter New VIP Plan URL">
-            <button class="btn btn-main" style="font-size:11px; padding:8px;" onclick="saveLinks()">Save Settings</button>
+            <p style="font-size:11px; color:var(--admin-clr); font-weight:bold;">EDIT BUTTON LINKS</p>
+            <input type="text" id="new-support" placeholder="New Support URL">
+            <input type="text" id="new-vip" placeholder="New VIP URL">
+            <button class="btn btn-main" style="padding:8px; font-size:10px;" onclick="saveLinks()">Save Settings</button>
         </div>
 
         <div id="panel-area" class="hidden">
             <input type="number" id="player-uid" placeholder="Enter Player UID">
-            <button id="submitBtn" class="btn btn-main" onclick="processOrder()">Get 200 Likes</button>
-            <div class="prog-cont" id="progCont"><div class="prog-bar" id="progBar"></div></div>
+            <button id="submitBtn" class="btn btn-main" onclick="startProcess()">SUBMIT ORDER</button>
+            <div class="progress-container" id="progCont"><div class="progress-bar" id="progBar"></div></div>
+            <p id="timerText" class="hidden" style="font-size: 12px;">Processing: <span id="timer">0</span>s</p>
             <div id="api-response"></div>
         </div>
 
-        <div style="margin-top:25px; text-align:left;">
-            <p style="font-size:12px; color:var(--primary); font-family:'Orbitron';">RECENT ACTIVITY</p>
-            <div id="real-history">
-                <div style="font-size:10px; color:gray; text-align:center;">No recent orders...</div>
-            </div>
+        <div style="margin-top:20px; text-align:left;">
+            <p style="font-size:11px; color:var(--primary);">RECENT REAL ORDERS</p>
+            <div id="real-history"></div>
         </div>
     </div>
 
     <script>
-        // Data Load
-        let supportURL = localStorage.getItem('s_url') || 'https://t.me/YourTelegram';
-        let planURL = localStorage.getItem('p_url') || 'https://t.me/YourTelegram';
-        let users = parseInt(localStorage.getItem('real_users_count')) || 0;
-        let history = JSON.parse(localStorage.getItem('real_history_data')) || [];
+        let s_url = localStorage.getItem('s_url') || 'https://t.me/YourTG';
+        let v_url = localStorage.getItem('v_url') || 'https://t.me/YourTG';
+        let userCount = parseInt(localStorage.getItem('total_real_users')) || 0;
+        let history = JSON.parse(localStorage.getItem('real_hist')) || [];
 
-        document.getElementById('user-count').innerText = users;
+        document.getElementById('user-count').innerText = userCount;
 
         function toggleAuth() {
             document.getElementById('login-form').classList.toggle('hidden');
@@ -110,71 +110,69 @@
             const u = document.getElementById('reg-user').value;
             const p = document.getElementById('reg-pass').value;
             if(u && p) {
-                localStorage.setItem('muk_user_'+u, p);
-                users++;
-                localStorage.setItem('real_users_count', users);
-                document.getElementById('user-count').innerText = users;
-                alert("Account Created! Now Login."); toggleAuth();
+                localStorage.setItem('u_'+u, p);
+                userCount++;
+                localStorage.setItem('total_real_users', userCount);
+                document.getElementById('user-count').innerText = userCount;
+                alert("Registered!"); toggleAuth();
             }
         }
 
         function handleLogin() {
             const u = document.getElementById('user').value;
             const p = document.getElementById('pass').value;
-            // Admin Check
             if(u === "admin" && p === "ADMIN123") {
                 document.getElementById('admin-btn').classList.remove('hidden');
-                enterDash("ADMIN");
-            } else if(localStorage.getItem('muk_user_'+u) === p) {
-                enterDash(u);
-            } else { alert("Wrong Username or Password!"); }
+                loginOk("ADMIN");
+            } else if(localStorage.getItem('u_'+u) === p) {
+                loginOk(u);
+            } else { alert("Wrong Login!"); }
         }
 
-        function enterDash(name) {
+        function loginOk(n) {
             document.getElementById('auth-screen').classList.add('hidden');
             document.getElementById('dashboard-screen').classList.remove('hidden');
-            document.getElementById('welcome-msg').innerText = "HI, " + name;
+            document.getElementById('welcome-msg').innerText = "Hi, " + n;
             renderHistory();
         }
 
-        function toggleAdmin() { 
+        function toggleAdmin() {
             const box = document.getElementById('admin-box');
             box.style.display = (box.style.display === 'block') ? 'none' : 'block';
         }
-        
+
         function saveLinks() {
-            const s = document.getElementById('edit-support').value;
-            const p = document.getElementById('edit-plan').value;
-            if(s) { supportURL = s; localStorage.setItem('s_url', s); }
-            if(p) { planURL = p; localStorage.setItem('p_url', p); }
-            alert("Links Updated Successfully!");
-            document.getElementById('admin-box').style.display = 'none';
+            const s = document.getElementById('new-support').value;
+            const v = document.getElementById('new-vip').value;
+            if(s) { s_url = s; localStorage.setItem('s_url', s); }
+            if(v) { v_url = v; localStorage.setItem('v_url', v); }
+            alert("Links Saved!");
+            toggleAdmin();
         }
 
-        function showPanel() { 
-            alert("SERVER: IND Server Connected!");
-            document.getElementById('panel-area').classList.remove('hidden'); 
-        }
+        function openPanel() { document.getElementById('panel-area').classList.remove('hidden'); }
 
-        // Like System (Original Logic)
-        async function processOrder() {
+        // --- YAHAN HAI TERA ORIGINAL LIKE SYSTEM KA LOGIC ---
+        async function startProcess() {
             const uid = document.getElementById('player-uid').value;
             if(!uid) return alert("Enter UID!");
+
             const btn = document.getElementById('submitBtn');
-            const progBar = document.getElementById('progBar');
             const progCont = document.getElementById('progCont');
+            const progBar = document.getElementById('progBar');
+            const timerText = document.getElementById('timerText');
             const respBox = document.getElementById('api-response');
 
             btn.disabled = true;
             progCont.style.display = 'block';
+            timerText.classList.remove('hidden');
             respBox.style.display = 'none';
             
-            let width = 0;
-            let iv = setInterval(() => { 
-                width += 2; 
-                progBar.style.width = width + '%'; 
-                if(width >= 90) clearInterval(iv); 
-            }, 200);
+            let count = 0; let width = 0;
+            let timer = setInterval(() => { 
+                count++; document.getElementById('timer').innerText = count;
+                if(width < 95) { width += 1.5; progBar.style.width = width + '%'; }
+            }, 400);
 
             try {
                 const target = `https://mukesh-ult-like.vercel.app/like?uid=${uid}&region=ind&key=UDIT`;
@@ -182,46 +180,38 @@
                 const json = await response.json();
                 const data = JSON.parse(json.contents);
 
-                clearInterval(iv);
+                clearInterval(timer);
                 progBar.style.width = '100%';
                 
                 setTimeout(() => {
                     progCont.style.display = 'none';
+                    timerText.classList.add('hidden');
                     respBox.style.display = 'block';
                     btn.disabled = false;
-                    
-                    // Simple Response jaisa pehle manga tha
+                    document.getElementById('successSound').play();
+
+                    // TERA EXACT SAME RESPONSE UI
                     respBox.innerHTML = `
-                        ✅ <b>SUCCESSFUL</b><br>
-                        <b>Nickname:</b> ${data.PlayerNickname}<br>
-                        <b>Level:</b> ${data.Level}<br>
-                        <b>Likes Added:</b> +${data.LikesGivenByAPI}<br>
-                        <b>Remaining:</b> ${data.remaining}/200
+                        <div style="text-align:center; color:var(--primary); font-weight:bold; margin-bottom:10px;">ORDER PROCESSED</div>
+                        <div class="response-item"><span>Nickname:</span> <b>${data.PlayerNickname}</b></div>
+                        <div class="response-item"><span>Level:</span> <b>${data.Level}</b></div>
+                        <div class="response-item"><span>Likes Sent:</span> <b style="color:var(--success)">+${data.LikesGivenByAPI}</b></div>
+                        <div class="response-item"><span>Remaining:</span> <b>${data.remaining}</b></div>
                     `;
-                    
-                    // Real History Update
+
+                    // HISTORY UPDATE
                     history.unshift({name: data.PlayerNickname, uid: uid, likes: data.LikesGivenByAPI});
                     if(history.length > 5) history.pop();
-                    localStorage.setItem('real_history_data', JSON.stringify(history));
+                    localStorage.setItem('real_hist', JSON.stringify(history));
                     renderHistory();
-                }, 500);
-            } catch (e) { 
-                alert("Server Busy! Try again."); 
-                btn.disabled = false; 
-                progCont.style.display = 'none';
-            }
+                }, 800);
+            } catch (err) { clearInterval(timer); btn.disabled = false; alert("Error!"); }
         }
 
         function renderHistory() {
-            const histDiv = document.getElementById('real-history');
-            if(history.length > 0) {
-                histDiv.innerHTML = history.map(i => `
-                    <div class="history-item">
-                        <span><b>${i.name}</b> (${i.uid})</span>
-                        <span style="color:var(--success)">+${i.likes}</span>
-                    </div>
-                `).join('');
-            }
+            document.getElementById('real-history').innerHTML = history.map(i => `
+                <div class="history-item"><span>${i.name} (${i.uid})</span><span style="color:var(--success)">+${i.likes}</span></div>
+            `).join('');
         }
     </script>
 </body>
