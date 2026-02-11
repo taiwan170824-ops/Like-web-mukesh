@@ -3,151 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Free Fire Like Panel | IND Server</title>
+    <title>MUKESH | Ultimate IND Like Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-color: #00f2fe;
-            --secondary-color: #4facfe;
-            --bg-dark: #0f172a;
-            --card-bg: #1e293b;
-            --text-light: #f8fafc;
-        }
-
-        body {
-            margin: 0;
-            font-family: 'Poppins', sans-serif;
-            background: var(--bg-dark);
-            color: var(--text-light);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        /* --- Welcome & Auth Styles --- */
-        #auth-screen, #dashboard-screen {
-            width: 100%;
-            max-width: 450px;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        h1 { font-size: 24px; margin-bottom: 10px; color: var(--primary-color); }
-        p { color: #94a3b8; font-size: 14px; }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border-radius: 8px;
-            border: none;
-            background: #334155;
-            color: white;
-            box-sizing: border-box;
-        }
-
-        .btn {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-            transition: 0.3s;
-        }
-
-        .btn-main { background: linear-gradient(to right, var(--secondary-color), var(--primary-color)); color: #000; }
-        .btn-outline { background: transparent; border: 2px solid var(--primary-color); color: var(--primary-color); }
+        :root { --primary: #00f2fe; --accent: #4facfe; --bg: #0b0e14; --card: #161b22; --success: #4ade80; --error: #f87171; }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow-x: hidden; }
+        
+        /* Layout & Card */
+        .card { background: var(--card); padding: 30px; border-radius: 24px; width: 95%; max-width: 420px; text-align: center; box-shadow: 0 0 30px rgba(0, 242, 254, 0.2); border: 1px solid rgba(255,255,255,0.05); animation: fadeIn 0.8s ease; }
+        h1 { font-family: 'Orbitron', sans-serif; color: var(--primary); font-size: 22px; text-shadow: 0 0 10px var(--primary); margin-bottom: 20px; }
+        
+        /* Inputs & Buttons */
+        input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1px solid #30363d; background: #0d1117; color: white; box-sizing: border-box; outline: none; transition: 0.3s; }
+        input:focus { border-color: var(--primary); box-shadow: 0 0 8px rgba(0, 242, 254, 0.4); }
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        .btn-main { background: linear-gradient(45deg, var(--accent), var(--primary)); color: #000; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3); }
+        .btn-main:active { transform: scale(0.98); }
+        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+        .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 11px; }
+        
+        /* Progress & Response */
+        .progress-container { width: 100%; background: #0d1117; border-radius: 10px; margin: 20px 0; height: 12px; overflow: hidden; display: none; }
+        .progress-bar { width: 0%; height: 100%; background: var(--primary); box-shadow: 0 0 15px var(--primary); transition: width 0.4s; }
+        #api-response { margin-top: 20px; text-align: left; padding: 15px; border-radius: 15px; font-size: 14px; display: none; line-height: 1.6; animation: slideUp 0.5s ease; }
+        .success-box { border: 1px solid var(--success); background: rgba(74, 222, 128, 0.1); color: var(--success); }
+        .error-box { border: 1px solid var(--error); background: rgba(248, 113, 113, 0.1); color: var(--error); }
         
         .hidden { display: none; }
+        .activity-feed { margin-top: 25px; font-size: 11px; color: #8b949e; border-top: 1px solid #30363d; padding-top: 15px; font-style: italic; }
 
-        /* --- Dashboard Specifics --- */
-        .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; }
-        
-        #loader {
-            margin-top: 15px;
-            padding: 15px;
-            background: rgba(79, 172, 254, 0.1);
-            border: 1px dashed var(--primary-color);
-            border-radius: 10px;
-        }
-
-        #api-response {
-            margin-top: 20px;
-            text-align: left;
-            font-size: 13px;
-            padding: 15px;
-            border-radius: 10px;
-            background: #000;
-            display: none;
-        }
-
-        .success { color: #4ade80; border: 1px solid #4ade80; }
-        .fail { color: #f87171; border: 1px solid #f87171; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
     </style>
 </head>
 <body>
 
-    <div id="auth-screen">
-        <div class="card">
-            <h1>WELCOME PANEL</h1>
-            <p>India's Most Trusted Like Panel. Please login to continue.</p>
-            
-            <div id="login-form">
-                <input type="text" id="user" placeholder="Username">
-                <input type="password" id="pass" placeholder="Password">
-                <button class="btn btn-main" onclick="handleLogin()">Login</button>
-                <p onclick="toggleAuth()" style="cursor:pointer; margin-top:15px;">New user? <b>Register here</b></p>
-            </div>
+    <audio id="successSound" src="https://assets.mixkit.co/active_storage/sfx/2869/2869-preview.mp3"></audio>
 
-            <div id="register-form" class="hidden">
-                <input type="text" id="reg-user" placeholder="Create Username">
-                <input type="password" id="reg-pass" placeholder="Create Password">
-                <button class="btn btn-main" onclick="handleRegister()">Create Account</button>
-                <p onclick="toggleAuth()" style="cursor:pointer; margin-top:15px;">Already have account? <b>Login</b></p>
-            </div>
+    <div id="auth-screen" class="card">
+        <h1>MUKESH PANEL</h1>
+        <p style="font-size: 13px; color: #8b949e; margin-bottom: 20px;">Register to start getting likes</p>
+        
+        <div id="login-form">
+            <input type="text" id="user" placeholder="Username">
+            <input type="password" id="pass" placeholder="Password">
+            <button class="btn btn-main" onclick="handleLogin()">Login</button>
+            <p style="font-size:12px; margin-top:15px;">New User? <span onclick="toggleAuth()" style="color:var(--primary); cursor:pointer;"><b>Register</b></span></p>
+        </div>
+
+        <div id="register-form" class="hidden">
+            <input type="text" id="reg-user" placeholder="Create Username">
+            <input type="password" id="reg-pass" placeholder="Create Password">
+            <button class="btn btn-main" onclick="handleRegister()">Create Account</button>
+            <p style="font-size:12px; margin-top:15px;">Have Account? <span onclick="toggleAuth()" style="color:var(--primary); cursor:pointer;"><b>Login</b></span></p>
         </div>
     </div>
 
-    <div id="dashboard-screen" class="hidden">
-        <div class="card">
-            <h2 id="welcome-msg">Hi, User!</h2>
-            <div class="btn-grid">
-                <button class="btn btn-main" onclick="showIndAlert()">Send 200 Like</button>
-                <button class="btn btn-outline" onclick="goToTg()">Support</button>
-                <button class="btn btn-outline" onclick="goToTg()">Admin ID</button>
-                <button class="btn btn-outline" onclick="goToTg()">VIP Plan</button>
-            </div>
-
-            <hr style="margin:25px 0; border: 0.5px solid #334155;">
-
-            <div id="like-section" class="hidden">
-                <h3>Submit UID</h3>
-                <input type="number" id="player-uid" placeholder="Enter Player UID">
-                <button class="btn btn-main" onclick="hitLikeApi()">SEND LIKES NOW</button>
-
-                <div id="loader" class="hidden">
-                    🚀 Order is processing... <br>
-                    Time: <span id="timer">0</span>s
-                </div>
-
-                <div id="api-response"></div>
-            </div>
+    <div id="dashboard-screen" class="card hidden">
+        <h2 id="welcome-msg" style="margin:0; font-size: 18px;">Hello!</h2>
+        <div class="btn-grid">
+            <button class="btn btn-main" onclick="unlockPanel()">Send 200 Like</button>
+            <button class="btn btn-outline" onclick="window.open('https://t.me/YourTGLink', '_blank')">Support</button>
+            <button class="btn btn-outline" onclick="window.open('https://t.me/YourTGLink', '_blank')">Admin ID</button>
+            <button class="btn btn-outline" onclick="window.open('https://t.me/YourTGLink', '_blank')">VIP Plan</button>
         </div>
+
+        <div id="panel-area" class="hidden">
+            <hr style="border:0.5px solid #30363d; margin:20px 0;">
+            <input type="number" id="player-uid" placeholder="Enter Player UID (IND)">
+            <button id="submitBtn" class="btn btn-main" onclick="hitApi()">SEND LIKES NOW</button>
+            
+            <div class="progress-container" id="progCont">
+                <div class="progress-bar" id="progBar"></div>
+            </div>
+            <p id="timerText" class="hidden" style="font-size: 12px; color: var(--primary);">Order Processing: <span id="timer">0</span>s</p>
+
+            <div id="api-response"></div>
+        </div>
+
+        <div class="activity-feed" id="live-feed">Connecting to FF Server...</div>
     </div>
 
     <script>
-        // Simple Auth Logic
+        // --- 1. Registration & Login Logic ---
         function toggleAuth() {
             document.getElementById('login-form').classList.toggle('hidden');
             document.getElementById('register-form').classList.toggle('hidden');
@@ -157,77 +95,107 @@
             const u = document.getElementById('reg-user').value;
             const p = document.getElementById('reg-pass').value;
             if(u && p) {
-                localStorage.setItem('db_user', u);
-                localStorage.setItem('db_pass', p);
-                alert("Registration Successful! Now Login.");
+                localStorage.setItem('mukesh_user', u);
+                localStorage.setItem('mukesh_pass', p);
+                alert("Account Created! Please Login.");
                 toggleAuth();
-            } else { alert("Please fill details"); }
+            } else { alert("Fill all fields!"); }
         }
 
         function handleLogin() {
             const u = document.getElementById('user').value;
             const p = document.getElementById('pass').value;
-            if(u === localStorage.getItem('db_user') && p === localStorage.getItem('db_pass')) {
+            if(u === localStorage.getItem('mukesh_user') && p === localStorage.getItem('mukesh_pass')) {
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('dashboard-screen').classList.remove('hidden');
-                document.getElementById('welcome-msg').innerText = "Welcome, " + u + "!";
+                document.getElementById('welcome-msg').innerText = "Welcome Back, " + u + "!";
             } else { alert("Wrong Username or Password!"); }
         }
 
-        // Dashboard Logic
-        function showIndAlert() {
-            alert("This program is only for IND Server users.");
-            document.getElementById('like-section').classList.remove('hidden');
+        // --- 2. Panel Functions ---
+        function unlockPanel() {
+            alert("Checking Server... \nStatus: IND Server Only Program.");
+            document.getElementById('panel-area').classList.remove('hidden');
         }
 
-        function goToTg() {
-            window.location.href = "https://t.me/YourChannelLink"; // Yahan apna link dalein
-        }
-
-        // API Logic
-        async function hitLikeApi() {
+        // --- 3. API & Response Logic ---
+        async function hitApi() {
             const uid = document.getElementById('player-uid').value;
-            if(!uid) { alert("UID daalna zaroori hai!"); return; }
+            if(!uid) return alert("UID is required!");
 
-            const loader = document.getElementById('loader');
-            const respDiv = document.getElementById('api-response');
-            const timerSpan = document.getElementById('timer');
+            const btn = document.getElementById('submitBtn');
+            const progBar = document.getElementById('progBar');
+            const progCont = document.getElementById('progCont');
+            const timerText = document.getElementById('timerText');
+            const respBox = document.getElementById('api-response');
 
-            loader.classList.remove('hidden');
-            respDiv.style.display = 'none';
+            // Reset UI
+            btn.disabled = true;
+            progCont.style.display = 'block';
+            timerText.classList.remove('hidden');
+            respBox.style.display = 'none';
             
             let count = 0;
-            let timer = setInterval(() => { count++; timerSpan.innerText = count; }, 1000);
+            let width = 0;
+            let timer = setInterval(() => { 
+                count++; 
+                document.getElementById('timer').innerText = count;
+                if(width < 95) { width += 2; progBar.style.width = width + '%'; }
+            }, 300);
 
             try {
-                const url = `https://mukesh-ult-like.vercel.app/like?uid=${uid}&region=ind&key=UDIT`;
-                const response = await fetch(url);
-                const data = await response.json();
+                // Using Proxy to fix CORS Error
+                const apiUrl = `https://mukesh-ult-like.vercel.app/like?uid=${uid}&region=ind&key=UDIT`;
+                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`;
+
+                const response = await fetch(proxyUrl);
+                const json = await response.json();
+                const data = JSON.parse(json.contents);
 
                 clearInterval(timer);
-                loader.classList.add('hidden');
-                respDiv.style.display = 'block';
+                progBar.style.width = '100%';
+                
+                setTimeout(() => {
+                    progCont.style.display = 'none';
+                    timerText.classList.add('hidden');
+                    respBox.style.display = 'block';
+                    btn.disabled = false;
 
-                if(data.LikesGivenByAPI > 0) {
-                    respDiv.className = "success";
-                    respDiv.innerHTML = `
-                        <b>✅ SUCCESS!</b><br>
-                        Nickname: ${data.PlayerNickname}<br>
-                        Level: ${data.Level}<br>
-                        Likes Sent: ${data.LikesGivenByAPI}<br>
-                        Total Likes: ${data.LikesafterCommand}
-                    `;
-                } else {
-                    respDiv.className = "fail";
-                    respDiv.innerHTML = `<b>❌ FAILED!</b><br>Daily 200 limit over. Please try again tomorrow.`;
-                }
+                    // Condition: If likes > 0, show SUCCESS, else show FAIL
+                    if (data.LikesGivenByAPI > 0) {
+                        document.getElementById('successSound').play();
+                        respBox.className = "success-box";
+                        respBox.innerHTML = `
+                            <b>✅ SUCCESSFUL RESPONSE</b><br>
+                            <b>Nickname:</b> ${data.PlayerNickname}<br>
+                            <b>Level:</b> ${data.Level}<br>
+                            <b>Region:</b> ${data.Region}<br>
+                            <b>Likes Sent:</b> +${data.LikesGivenByAPI}<br>
+                            <b>New Likes:</b> ${data.LikesafterCommand}
+                        `;
+                    } else {
+                        respBox.className = "error-box";
+                        respBox.innerHTML = `
+                            <b>❌ DAILY LIMIT REACHED</b><br>
+                            <b>Status:</b> Failed<br>
+                            <b>Reason:</b> Your daily limit (200) is over. Please try again after 24 hours.
+                        `;
+                    }
+                }, 800);
 
-            } catch (e) {
+            } catch (err) {
                 clearInterval(timer);
-                loader.classList.add('hidden');
-                alert("API Error! Check connection.");
+                btn.disabled = false;
+                alert("API Server is busy. Please try again in 1 minute.");
             }
         }
+
+        // --- 4. Live Feed Animation ---
+        const players = ["Mr_Bitcoin", "King_Raj", "Sk_Sabir", "Legend_69", "Killer_FF"];
+        setInterval(() => {
+            const p = players[Math.floor(Math.random()*players.length)];
+            document.getElementById('live-feed').innerText = `Live: ${p} just received 200 likes!`;
+        }, 5000);
     </script>
 </body>
 </html>
