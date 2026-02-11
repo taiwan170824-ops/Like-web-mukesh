@@ -9,31 +9,25 @@
         :root { --primary: #00f2fe; --accent: #4facfe; --bg: #0b0e14; --card: #161b22; --success: #4ade80; --error: #f87171; }
         body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow-x: hidden; }
         
-        /* Layout & Card */
-        .card { background: var(--card); padding: 30px; border-radius: 24px; width: 95%; max-width: 420px; text-align: center; box-shadow: 0 0 30px rgba(0, 242, 254, 0.2); border: 1px solid rgba(255,255,255,0.05); animation: fadeIn 0.8s ease; }
+        .card { background: var(--card); padding: 30px; border-radius: 24px; width: 95%; max-width: 420px; text-align: center; box-shadow: 0 0 25px rgba(0, 242, 254, 0.15); border: 1px solid rgba(255,255,255,0.05); }
         h1 { font-family: 'Orbitron', sans-serif; color: var(--primary); font-size: 22px; text-shadow: 0 0 10px var(--primary); margin-bottom: 20px; }
         
-        /* Inputs & Buttons */
-        input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1px solid #30363d; background: #0d1117; color: white; box-sizing: border-box; outline: none; transition: 0.3s; }
-        input:focus { border-color: var(--primary); box-shadow: 0 0 8px rgba(0, 242, 254, 0.4); }
-        .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
+        input { width: 100%; padding: 14px; margin: 10px 0; border-radius: 12px; border: 1px solid #30363d; background: #0d1117; color: white; box-sizing: border-box; outline: none; }
+        input:focus { border-color: var(--primary); }
+        
+        .btn { width: 100%; padding: 14px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px; transition: 0.3s; text-transform: uppercase; }
         .btn-main { background: linear-gradient(45deg, var(--accent), var(--primary)); color: #000; box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3); }
-        .btn-main:active { transform: scale(0.98); }
         .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
         .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 11px; }
         
-        /* Progress & Response */
-        .progress-container { width: 100%; background: #0d1117; border-radius: 10px; margin: 20px 0; height: 12px; overflow: hidden; display: none; }
-        .progress-bar { width: 0%; height: 100%; background: var(--primary); box-shadow: 0 0 15px var(--primary); transition: width 0.4s; }
-        #api-response { margin-top: 20px; text-align: left; padding: 15px; border-radius: 15px; font-size: 14px; display: none; line-height: 1.6; animation: slideUp 0.5s ease; }
-        .success-box { border: 1px solid var(--success); background: rgba(74, 222, 128, 0.1); color: var(--success); }
-        .error-box { border: 1px solid var(--error); background: rgba(248, 113, 113, 0.1); color: var(--error); }
-        
-        .hidden { display: none; }
-        .activity-feed { margin-top: 25px; font-size: 11px; color: #8b949e; border-top: 1px solid #30363d; padding-top: 15px; font-style: italic; }
+        .progress-container { width: 100%; background: #0d1117; border-radius: 10px; margin: 20px 0; height: 10px; overflow: hidden; display: none; }
+        .progress-bar { width: 0%; height: 100%; background: var(--primary); box-shadow: 0 0 15px var(--primary); transition: width 0.3s; }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        #api-response { margin-top: 20px; text-align: left; padding: 15px; border-radius: 15px; font-size: 13px; display: none; line-height: 1.8; background: rgba(0, 242, 254, 0.05); border: 1px solid var(--primary); }
+        .response-item { display: flex; justify-content: space-between; border-bottom: 1px solid rgba(255,255,255,0.1); padding: 2px 0; }
+        .hidden { display: none; }
+        
+        .recent-activity { margin-top: 20px; font-size: 11px; color: #8b949e; border-top: 1px solid #30363d; padding-top: 10px; font-style: italic; }
     </style>
 </head>
 <body>
@@ -42,94 +36,81 @@
 
     <div id="auth-screen" class="card">
         <h1>MUKESH PANEL</h1>
-        <p style="font-size: 13px; color: #8b949e; margin-bottom: 20px;">Register to start getting likes</p>
-        
         <div id="login-form">
             <input type="text" id="user" placeholder="Username">
             <input type="password" id="pass" placeholder="Password">
             <button class="btn btn-main" onclick="handleLogin()">Login</button>
-            <p style="font-size:12px; margin-top:15px;">New User? <span onclick="toggleAuth()" style="color:var(--primary); cursor:pointer;"><b>Register</b></span></p>
+            <p onclick="toggleAuth()" style="cursor:pointer; font-size:12px; margin-top:15px;">New? <b style="color:var(--primary)">Register Now</b></p>
         </div>
-
         <div id="register-form" class="hidden">
-            <input type="text" id="reg-user" placeholder="Create Username">
-            <input type="password" id="reg-pass" placeholder="Create Password">
-            <button class="btn btn-main" onclick="handleRegister()">Create Account</button>
-            <p style="font-size:12px; margin-top:15px;">Have Account? <span onclick="toggleAuth()" style="color:var(--primary); cursor:pointer;"><b>Login</b></span></p>
+            <input type="text" id="reg-user" placeholder="Choose Username">
+            <input type="password" id="reg-pass" placeholder="Choose Password">
+            <button class="btn btn-main" onclick="handleRegister()">Register Account</button>
+            <p onclick="toggleAuth()" style="cursor:pointer; font-size:12px; margin-top:15px;">Have account? <b style="color:var(--primary)">Login</b></p>
         </div>
     </div>
 
     <div id="dashboard-screen" class="card hidden">
-        <h2 id="welcome-msg" style="margin:0; font-size: 18px;">Hello!</h2>
+        <h2 id="welcome-msg" style="margin:0; font-size: 18px;">Welcome!</h2>
         <div class="btn-grid">
-            <button class="btn btn-main" onclick="unlockPanel()">Send 200 Like</button>
-            <button class="btn btn-outline" onclick="window.open('https://t.me/YourTGLink', '_blank')">Support</button>
-            <button class="btn btn-outline" onclick="window.open('https://t.me/YourTGLink', '_blank')">Admin ID</button>
-            <button class="btn btn-outline" onclick="window.open('https://t.me/YourTGLink', '_blank')">VIP Plan</button>
+            <button class="btn btn-main" onclick="openPanel()">Send 200 Like</button>
+            <button class="btn btn-outline" onclick="window.open('https://t.me/YourChannel', '_blank')">Support</button>
+            <button class="btn btn-outline" onclick="window.open('https://t.me/YourChannel', '_blank')">Admin ID</button>
+            <button class="btn btn-outline" onclick="window.open('https://t.me/YourChannel', '_blank')">VIP Plan</button>
         </div>
 
         <div id="panel-area" class="hidden">
             <hr style="border:0.5px solid #30363d; margin:20px 0;">
-            <input type="number" id="player-uid" placeholder="Enter Player UID (IND)">
-            <button id="submitBtn" class="btn btn-main" onclick="hitApi()">SEND LIKES NOW</button>
+            <input type="number" id="player-uid" placeholder="Enter Free Fire UID">
+            <button id="submitBtn" class="btn btn-main" onclick="startProcess()">SUBMIT ORDER</button>
             
             <div class="progress-container" id="progCont">
                 <div class="progress-bar" id="progBar"></div>
             </div>
-            <p id="timerText" class="hidden" style="font-size: 12px; color: var(--primary);">Order Processing: <span id="timer">0</span>s</p>
+            <p id="timerText" class="hidden" style="font-size: 12px; color: var(--primary);">Processing: <span id="timer">0</span>s</p>
 
             <div id="api-response"></div>
         </div>
 
-        <div class="activity-feed" id="live-feed">Connecting to FF Server...</div>
+        <div class="recent-activity" id="activity">System Ready...</div>
     </div>
 
     <script>
-        // --- 1. Registration & Login Logic ---
+        // Auth Logic
         function toggleAuth() {
             document.getElementById('login-form').classList.toggle('hidden');
             document.getElementById('register-form').classList.toggle('hidden');
         }
-
         function handleRegister() {
             const u = document.getElementById('reg-user').value;
             const p = document.getElementById('reg-pass').value;
-            if(u && p) {
-                localStorage.setItem('mukesh_user', u);
-                localStorage.setItem('mukesh_pass', p);
-                alert("Account Created! Please Login.");
-                toggleAuth();
-            } else { alert("Fill all fields!"); }
+            if(u && p) { localStorage.setItem('u', u); localStorage.setItem('p', p); alert("Registered!"); toggleAuth(); }
         }
-
         function handleLogin() {
             const u = document.getElementById('user').value;
             const p = document.getElementById('pass').value;
-            if(u === localStorage.getItem('mukesh_user') && p === localStorage.getItem('mukesh_pass')) {
+            if(u === localStorage.getItem('u') && p === localStorage.getItem('p')) {
                 document.getElementById('auth-screen').classList.add('hidden');
                 document.getElementById('dashboard-screen').classList.remove('hidden');
-                document.getElementById('welcome-msg').innerText = "Welcome Back, " + u + "!";
-            } else { alert("Wrong Username or Password!"); }
+                document.getElementById('welcome-msg').innerText = "Hi, " + u + "!";
+            } else { alert("Invalid Login!"); }
         }
 
-        // --- 2. Panel Functions ---
-        function unlockPanel() {
-            alert("Checking Server... \nStatus: IND Server Only Program.");
+        function openPanel() {
+            alert("⚠️ Only for IND Server accounts!");
             document.getElementById('panel-area').classList.remove('hidden');
         }
 
-        // --- 3. API & Response Logic ---
-        async function hitApi() {
+        async function startProcess() {
             const uid = document.getElementById('player-uid').value;
-            if(!uid) return alert("UID is required!");
+            if(!uid) return alert("Enter UID!");
 
             const btn = document.getElementById('submitBtn');
-            const progBar = document.getElementById('progBar');
             const progCont = document.getElementById('progCont');
+            const progBar = document.getElementById('progBar');
             const timerText = document.getElementById('timerText');
             const respBox = document.getElementById('api-response');
 
-            // Reset UI
             btn.disabled = true;
             progCont.style.display = 'block';
             timerText.classList.remove('hidden');
@@ -140,15 +121,12 @@
             let timer = setInterval(() => { 
                 count++; 
                 document.getElementById('timer').innerText = count;
-                if(width < 95) { width += 2; progBar.style.width = width + '%'; }
-            }, 300);
+                if(width < 95) { width += 1.5; progBar.style.width = width + '%'; }
+            }, 400);
 
             try {
-                // Using Proxy to fix CORS Error
-                const apiUrl = `https://mukesh-ult-like.vercel.app/like?uid=${uid}&region=ind&key=UDIT`;
-                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(apiUrl)}`;
-
-                const response = await fetch(proxyUrl);
+                const target = `https://mukesh-ult-like.vercel.app/like?uid=${uid}&region=ind&key=UDIT`;
+                const response = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(target)}`);
                 const json = await response.json();
                 const data = JSON.parse(json.contents);
 
@@ -160,41 +138,33 @@
                     timerText.classList.add('hidden');
                     respBox.style.display = 'block';
                     btn.disabled = false;
+                    document.getElementById('successSound').play();
 
-                    // Condition: If likes > 0, show SUCCESS, else show FAIL
-                    if (data.LikesGivenByAPI > 0) {
-                        document.getElementById('successSound').play();
-                        respBox.className = "success-box";
-                        respBox.innerHTML = `
-                            <b>✅ SUCCESSFUL RESPONSE</b><br>
-                            <b>Nickname:</b> ${data.PlayerNickname}<br>
-                            <b>Level:</b> ${data.Level}<br>
-                            <b>Region:</b> ${data.Region}<br>
-                            <b>Likes Sent:</b> +${data.LikesGivenByAPI}<br>
-                            <b>New Likes:</b> ${data.LikesafterCommand}
-                        `;
-                    } else {
-                        respBox.className = "error-box";
-                        respBox.innerHTML = `
-                            <b>❌ DAILY LIMIT REACHED</b><br>
-                            <b>Status:</b> Failed<br>
-                            <b>Reason:</b> Your daily limit (200) is over. Please try again after 24 hours.
-                        `;
-                    }
+                    // Full Response Editing for User
+                    respBox.innerHTML = `
+                        <div style="text-align:center; color:var(--primary); font-weight:bold; margin-bottom:10px;">ORDER PROCESSED</div>
+                        <div class="response-item"><span>Nickname:</span> <b>${data.PlayerNickname}</b></div>
+                        <div class="response-item"><span>Level:</span> <b>${data.Level}</b></div>
+                        <div class="response-item"><span>Region:</span> <b>${data.Region}</b></div>
+                        <div class="response-item"><span>Likes Sent:</span> <b style="color:var(--success)">+${data.LikesGivenByAPI}</b></div>
+                        <div class="response-item"><span>Total Likes:</span> <b>${data.LikesafterCommand}</b></div>
+                        <div class="response-item"><span>Daily Limit:</span> <b>${data.used}/200</b></div>
+                        <div class="response-item"><span>Remaining:</span> <b>${data.remaining}</b></div>
+                        <div style="font-size:10px; color:#8b949e; margin-top:10px; text-align:center;">Status: ${data.status === 2 ? 'Processed' : 'Error'}</div>
+                    `;
                 }, 800);
-
             } catch (err) {
                 clearInterval(timer);
                 btn.disabled = false;
-                alert("API Server is busy. Please try again in 1 minute.");
+                alert("Server busy. Trying to reconnect...");
             }
         }
 
-        // --- 4. Live Feed Animation ---
-        const players = ["Mr_Bitcoin", "King_Raj", "Sk_Sabir", "Legend_69", "Killer_FF"];
+        // Fake Feed
         setInterval(() => {
-            const p = players[Math.floor(Math.random()*players.length)];
-            document.getElementById('live-feed').innerText = `Live: ${p} just received 200 likes!`;
+            const names = ["Mr_Bitcoin", "King_Raj", "Sk_Sabir", "Legend_69"];
+            const n = names[Math.floor(Math.random()*names.length)];
+            document.getElementById('activity').innerText = `Recent: ${n} received 200 likes!`;
         }, 5000);
     </script>
 </body>
