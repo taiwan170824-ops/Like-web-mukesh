@@ -10,15 +10,16 @@
         body { margin: 0; font-family: 'Poppins', sans-serif; background: var(--bg); color: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
         
         /* Stats Badge */
-        .stats-badge { position: fixed; top: 20px; left: 20px; background: var(--card); border: 1px solid var(--primary); padding: 10px; border-radius: 10px; z-index: 100; }
-        .stats-badge span { display: block; font-size: 10px; color: var(--primary); }
+        .stats-badge { position: fixed; top: 20px; left: 20px; background: var(--card); border: 1px solid var(--primary); padding: 10px; border-radius: 10px; z-index: 100; box-shadow: 0 0 10px var(--primary); }
+        .stats-badge span { display: block; font-size: 10px; color: var(--primary); font-family: 'Orbitron'; }
 
         .card { background: var(--card); padding: 30px; border-radius: 20px; width: 95%; max-width: 400px; text-align: center; border: 1px solid rgba(255,255,255,0.1); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        h1 { font-family: 'Orbitron', sans-serif; color: var(--primary); font-size: 22px; margin-bottom: 20px; }
+        h1 { font-family: 'Orbitron', sans-serif; color: var(--primary); font-size: 22px; margin-bottom: 20px; text-shadow: 0 0 5px var(--primary); }
 
         input { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: white; outline: none; }
-        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; }
+        .btn { width: 100%; padding: 12px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; text-transform: uppercase; transition: 0.3s; }
         .btn-main { background: linear-gradient(45deg, #4facfe, #00f2fe); color: #000; }
+        .btn-main:hover { transform: scale(1.02); }
         
         .btn-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 20px 0; }
         .btn-outline { background: transparent; border: 1px solid var(--primary); color: var(--primary); font-size: 11px; }
@@ -26,13 +27,14 @@
         .prog-cont { width: 100%; background: #0d1117; border-radius: 10px; height: 10px; margin: 15px 0; display: none; overflow: hidden; }
         .prog-bar { width: 0%; height: 100%; background: var(--primary); transition: width 0.3s; }
 
-        #api-response { margin-top: 15px; text-align: left; padding: 15px; border-radius: 10px; display: none; background: rgba(0,242,254,0.05); border: 1px solid var(--primary); font-size: 13px; }
+        #api-response { margin-top: 15px; text-align: left; padding: 15px; border-radius: 10px; display: none; background: rgba(0,242,254,0.05); border: 1px solid var(--primary); font-size: 14px; line-height: 1.6; }
         
         .history-item { background: #0d1117; padding: 10px; border-radius: 8px; margin-bottom: 5px; display: flex; justify-content: space-between; font-size: 11px; border-left: 3px solid var(--success); }
         
         /* Admin Section */
-        #admin-box { display: none; background: rgba(255,0,85,0.1); border: 1px solid var(--admin-clr); padding: 15px; border-radius: 10px; margin-top: 15px; text-align: left; }
+        #admin-box { display: none; background: rgba(255,0,85,0.1); border: 1px solid var(--admin-clr); padding: 15px; border-radius: 10px; margin-top: 15px; text-align: left; animation: fadeIn 0.5s; }
         .hidden { display: none; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -48,13 +50,13 @@
             <input type="text" id="user" placeholder="Username">
             <input type="password" id="pass" placeholder="Password">
             <button class="btn btn-main" onclick="handleLogin()">Login</button>
-            <p onclick="toggleAuth()" style="font-size:12px; cursor:pointer; margin-top:15px;">Register</p>
+            <p onclick="toggleAuth()" style="font-size:12px; cursor:pointer; margin-top:15px; color:var(--primary);">Don't have account? Register</p>
         </div>
         <div id="register-form" class="hidden">
             <input type="text" id="reg-user" placeholder="Create Username">
             <input type="password" id="reg-pass" placeholder="Create Password">
-            <button class="btn btn-main" onclick="handleRegister()">Register</button>
-            <p onclick="toggleAuth()" style="font-size:12px; cursor:pointer; margin-top:15px;">Back to Login</p>
+            <button class="btn btn-main" onclick="handleRegister()">Register Account</button>
+            <p onclick="toggleAuth()" style="font-size:12px; cursor:pointer; margin-top:15px; color:var(--primary);">Already have account? Login</p>
         </div>
     </div>
 
@@ -69,30 +71,33 @@
         </div>
 
         <div id="admin-box">
-            <p style="font-size:11px; color:var(--admin-clr); margin:0 0 10px;">ADMIN: Edit Button Links</p>
-            <input type="text" id="edit-support" placeholder="New Support URL">
-            <input type="text" id="edit-plan" placeholder="New VIP Plan URL">
-            <button class="btn btn-main" style="font-size:10px; padding:5px;" onclick="saveLinks()">Save Changes</button>
+            <p style="font-size:11px; color:var(--admin-clr); margin:0 0 10px; font-weight:bold;">ADMIN: EDIT SYSTEM LINKS</p>
+            <input type="text" id="edit-support" placeholder="Enter New Support URL">
+            <input type="text" id="edit-plan" placeholder="Enter New VIP Plan URL">
+            <button class="btn btn-main" style="font-size:11px; padding:8px;" onclick="saveLinks()">Save Settings</button>
         </div>
 
         <div id="panel-area" class="hidden">
-            <input type="number" id="player-uid" placeholder="Enter UID">
-            <button id="submitBtn" class="btn btn-main" onclick="processOrder()">Get Likes</button>
+            <input type="number" id="player-uid" placeholder="Enter Player UID">
+            <button id="submitBtn" class="btn btn-main" onclick="processOrder()">Get 200 Likes</button>
             <div class="prog-cont" id="progCont"><div class="prog-bar" id="progBar"></div></div>
             <div id="api-response"></div>
         </div>
 
-        <div style="margin-top:20px; text-align:left;">
-            <p style="font-size:12px; color:var(--primary);">RECENT ORDERS</p>
-            <div id="real-history"></div>
+        <div style="margin-top:25px; text-align:left;">
+            <p style="font-size:12px; color:var(--primary); font-family:'Orbitron';">RECENT ACTIVITY</p>
+            <div id="real-history">
+                <div style="font-size:10px; color:gray; text-align:center;">No recent orders...</div>
+            </div>
         </div>
     </div>
 
     <script>
-        let supportURL = localStorage.getItem('s_url') || 'https://t.me/YourChannel';
-        let planURL = localStorage.getItem('p_url') || 'https://t.me/YourChannel';
-        let users = parseInt(localStorage.getItem('real_users')) || 0;
-        let history = JSON.parse(localStorage.getItem('r_hist')) || [];
+        // Data Load
+        let supportURL = localStorage.getItem('s_url') || 'https://t.me/YourTelegram';
+        let planURL = localStorage.getItem('p_url') || 'https://t.me/YourTelegram';
+        let users = parseInt(localStorage.getItem('real_users_count')) || 0;
+        let history = JSON.parse(localStorage.getItem('real_history_data')) || [];
 
         document.getElementById('user-count').innerText = users;
 
@@ -105,23 +110,24 @@
             const u = document.getElementById('reg-user').value;
             const p = document.getElementById('reg-pass').value;
             if(u && p) {
-                localStorage.setItem('user_'+u, p);
+                localStorage.setItem('muk_user_'+u, p);
                 users++;
-                localStorage.setItem('real_users', users);
+                localStorage.setItem('real_users_count', users);
                 document.getElementById('user-count').innerText = users;
-                alert("Registered!"); toggleAuth();
+                alert("Account Created! Now Login."); toggleAuth();
             }
         }
 
         function handleLogin() {
             const u = document.getElementById('user').value;
             const p = document.getElementById('pass').value;
+            // Admin Check
             if(u === "admin" && p === "ADMIN123") {
                 document.getElementById('admin-btn').classList.remove('hidden');
                 enterDash("ADMIN");
-            } else if(localStorage.getItem('user_'+u) === p) {
+            } else if(localStorage.getItem('muk_user_'+u) === p) {
                 enterDash(u);
-            } else { alert("Wrong Password!"); }
+            } else { alert("Wrong Username or Password!"); }
         }
 
         function enterDash(name) {
@@ -131,22 +137,29 @@
             renderHistory();
         }
 
-        function toggleAdmin() { document.getElementById('admin-box').style.display = 'block'; }
+        function toggleAdmin() { 
+            const box = document.getElementById('admin-box');
+            box.style.display = (box.style.display === 'block') ? 'none' : 'block';
+        }
         
         function saveLinks() {
             const s = document.getElementById('edit-support').value;
             const p = document.getElementById('edit-plan').value;
             if(s) { supportURL = s; localStorage.setItem('s_url', s); }
             if(p) { planURL = p; localStorage.setItem('p_url', p); }
-            alert("Links Updated!");
+            alert("Links Updated Successfully!");
             document.getElementById('admin-box').style.display = 'none';
         }
 
-        function showPanel() { document.getElementById('panel-area').classList.remove('hidden'); }
+        function showPanel() { 
+            alert("SERVER: IND Server Connected!");
+            document.getElementById('panel-area').classList.remove('hidden'); 
+        }
 
+        // Like System (Original Logic)
         async function processOrder() {
             const uid = document.getElementById('player-uid').value;
-            if(!uid) return;
+            if(!uid) return alert("Enter UID!");
             const btn = document.getElementById('submitBtn');
             const progBar = document.getElementById('progBar');
             const progCont = document.getElementById('progCont');
@@ -154,10 +167,14 @@
 
             btn.disabled = true;
             progCont.style.display = 'block';
-            progBar.style.width = '0%';
+            respBox.style.display = 'none';
             
             let width = 0;
-            let iv = setInterval(() => { width += 2; progBar.style.width = width + '%'; if(width>=90) clearInterval(iv); }, 200);
+            let iv = setInterval(() => { 
+                width += 2; 
+                progBar.style.width = width + '%'; 
+                if(width >= 90) clearInterval(iv); 
+            }, 200);
 
             try {
                 const target = `https://mukesh-ult-like.vercel.app/like?uid=${uid}&region=ind&key=UDIT`;
@@ -167,22 +184,44 @@
 
                 clearInterval(iv);
                 progBar.style.width = '100%';
+                
                 setTimeout(() => {
                     progCont.style.display = 'none';
                     respBox.style.display = 'block';
                     btn.disabled = false;
-                    respBox.innerHTML = `<b>NICKNAME:</b> ${data.PlayerNickname}<br><b>LEVEL:</b> ${data.Level}<br><b>LIKES SENT:</b> +${data.LikesGivenByAPI}<br><b>STATUS:</b> SUCCESS`;
                     
+                    // Simple Response jaisa pehle manga tha
+                    respBox.innerHTML = `
+                        ✅ <b>SUCCESSFUL</b><br>
+                        <b>Nickname:</b> ${data.PlayerNickname}<br>
+                        <b>Level:</b> ${data.Level}<br>
+                        <b>Likes Added:</b> +${data.LikesGivenByAPI}<br>
+                        <b>Remaining:</b> ${data.remaining}/200
+                    `;
+                    
+                    // Real History Update
                     history.unshift({name: data.PlayerNickname, uid: uid, likes: data.LikesGivenByAPI});
                     if(history.length > 5) history.pop();
-                    localStorage.setItem('r_hist', JSON.stringify(history));
+                    localStorage.setItem('real_history_data', JSON.stringify(history));
                     renderHistory();
                 }, 500);
-            } catch (e) { alert("Server Busy!"); btn.disabled = false; }
+            } catch (e) { 
+                alert("Server Busy! Try again."); 
+                btn.disabled = false; 
+                progCont.style.display = 'none';
+            }
         }
 
         function renderHistory() {
-            document.getElementById('real-history').innerHTML = history.map(i => `<div class="history-item"><span>${i.name} (${i.uid})</span><span style="color:var(--success)">+${i.likes}</span></div>`).join('');
+            const histDiv = document.getElementById('real-history');
+            if(history.length > 0) {
+                histDiv.innerHTML = history.map(i => `
+                    <div class="history-item">
+                        <span><b>${i.name}</b> (${i.uid})</span>
+                        <span style="color:var(--success)">+${i.likes}</span>
+                    </div>
+                `).join('');
+            }
         }
     </script>
 </body>
