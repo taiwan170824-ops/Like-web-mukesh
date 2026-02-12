@@ -1,182 +1,173 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="hi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Like Booster | Premium Panel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    
+    <title>Like Booster - Telegram Bot System</title>
     <style>
-        :root { --neon: #00ff88; --bg: #050505; --card: #111; --error: #ff3333; }
-        * { box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
-        body { background: var(--bg); color: #fff; margin: 0; overflow-x: hidden; }
+        /* Modern UI Design */
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
         
-        /* Header */
-        .navbar { background: var(--card); padding: 15px; border-bottom: 2px solid var(--neon); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
-        .live-tag { background: rgba(255, 0, 0, 0.2); color: #ff4444; padding: 4px 10px; border-radius: 20px; font-size: 0.9rem; border: 1px solid #ff4444; }
+        body {
+            background: radial-gradient(circle at center, #2c3e50, #000000);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
 
-        .container { max-width: 480px; margin: 20px auto; padding: 10px; }
-        
-        /* Glassmorphism Cards */
-        .card { background: var(--card); padding: 25px; border-radius: 15px; border: 1px solid #222; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        
-        h2 { margin-top: 0; color: var(--neon); text-transform: uppercase; font-size: 1.5rem; }
-        input { width: 100%; padding: 14px; margin: 10px 0; background: #000; border: 1px solid #333; color: var(--neon); font-size: 1.1rem; border-radius: 8px; text-align: center; outline: none; }
-        input:focus { border-color: var(--neon); box-shadow: 0 0 10px rgba(0,255,136,0.3); }
-        
-        button { width: 100%; padding: 15px; background: var(--neon); color: #000; border: none; font-weight: 700; border-radius: 8px; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
-        button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px var(--neon); }
-        button:disabled { background: #444; cursor: not-allowed; transform: none; box-shadow: none; }
+        .main-container {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
 
-        /* API Response Styling */
-        #resBox { margin-top: 15px; padding: 15px; border-radius: 8px; text-align: left; font-size: 0.95rem; display: none; line-height: 1.6; border-left: 4px solid var(--neon); background: #000; }
-        .success { border-color: var(--neon) !important; color: #fff; }
-        .fail { border-color: var(--error) !important; color: var(--error); }
+        h1 { font-size: 24px; margin-bottom: 10px; color: #00d2ff; text-transform: uppercase; letter-spacing: 2px; }
+        p { font-size: 14px; color: #ccc; margin-bottom: 30px; }
 
-        /* Leaderboard */
-        .user-row { display: flex; justify-content: space-between; align-items: center; background: #1a1a1a; padding: 12px; margin-top: 8px; border-radius: 8px; border: 1px solid #222; }
-        .status-badge { color: var(--neon); font-size: 0.8rem; background: rgba(0,255,136,0.1); padding: 2px 8px; border-radius: 4px; }
+        .input-group { position: relative; margin-bottom: 25px; }
 
-        .hidden { display: none; }
+        input {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s;
+            text-align: center;
+        }
+
+        input:focus { border-color: #00d2ff; background: rgba(255, 255, 255, 0.15); }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.4s;
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 210, 255, 0.5);
+        }
+
+        button:active { transform: translateY(0); }
+
+        #responseBox {
+            margin-top: 25px;
+            padding: 15px;
+            border-radius: 10px;
+            font-size: 14px;
+            display: none; /* Starting mein hidden rahega */
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .loader {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #00d2ff;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(3600deg); }
+        }
     </style>
 </head>
 <body>
 
-    <div class="navbar">
-        <div style="font-size: 1.4rem; font-weight: 700;">L-BOOST <span style="color:var(--neon)">VIP</span></div>
-        <div class="live-tag"><i class="fas fa-users"></i> ONLINE: <span id="onlineCount">154</span></div>
+<div class="main-container">
+    <h1>Like Tool</h1>
+    <p>Enter UID to send /like command</p>
+
+    <div class="input-group">
+        <input type="number" id="uidInput" placeholder="Enter Player UID..." autocomplete="off">
     </div>
 
-    <div class="container">
-        <div id="loginCard" class="card">
-            <h2><i class="fas fa-user-shield"></i> Admin Login</h2>
-            <p style="color: #666; font-size: 0.9rem;">Enter secret key to access the tool</p>
-            <input type="text" id="user" placeholder="Username">
-            <input type="password" id="pass" placeholder="Password">
-            <button onclick="handleLogin()">AUTHENTICATE</button>
-        </div>
+    <button id="sendBtn" onclick="processRequest()">Send Free</button>
 
-        <div id="toolCard" class="card hidden">
-            <h2><i class="fas fa-fire"></i> Get Free Likes</h2>
-            <p style="color: #666;">Enter UID and hit send</p>
-            <input type="number" id="uidInput" placeholder="ENTER PLAYER UID">
-            <button id="sendBtn" onclick="hitMukeshApi()">START BOOSTING</button>
-            <div id="resBox"></div>
-        </div>
+    <div id="responseBox"></div>
+</div>
 
-        <div class="card">
-            <h3 style="margin:0 0 10px 0;"><i class="fas fa-bolt" style="color: gold;"></i> LIVE RECENT SUCCESS</h3>
-            <div id="recentHits">
-                <div style="color:#444; padding: 10px;">Waiting for activity...</div>
-            </div>
-        </div>
-    </div>
+<script>
+    async function processRequest() {
+        const uid = document.getElementById('uidInput').value;
+        const btn = document.getElementById('sendBtn');
+        const resBox = document.getElementById('responseBox');
 
-    <script>
-        // --- CONFIGURATION ---
-        const ADMIN_USER = "mukesh78";  // Change this
-        const ADMIN_PASS = "mukesh7878";   // Change this
+        // Aapki details (Already filled)
+        const botToken = "8357146519:AAHPWcwJGQZSenI8zTBLPrHn2t2FESwhI0A";
+        const chatId = "8243523112";
 
-        // --- LOGIN LOGIC ---
-        function handleLogin() {
-            const u = document.getElementById('user').value;
-            const p = document.getElementById('pass').value;
-            if(u === ADMIN_USER && p === ADMIN_PASS) {
-                document.getElementById('loginCard').classList.add('hidden');
-                document.getElementById('toolCard').classList.remove('hidden');
-                renderHits();
+        if (!uid || uid.length < 5) {
+            showResponse("❌ Please enter a valid UID!", "#ff4757");
+            return;
+        }
+
+        // Loading State
+        btn.disabled = true;
+        btn.innerHTML = '<span class="loader"></span> Processing...';
+        resBox.style.display = "none";
+
+        // URL for Telegram Bot
+        const textMessage = `/like ${uid}`;
+        const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(textMessage)}`;
+
+        try {
+            const response = await fetch(url);
+            const data = await response.json();
+
+            if (data.ok) {
+                showResponse(`✅ Command Sent!<br><b>/like ${uid}</b> has been hit to bot.`, "#2ed573");
             } else {
-                alert("Incorrect Credentials! Access Denied.");
+                showResponse("❌ Error: Bot token or ID is incorrect.", "#ff4757");
             }
-        }
-
-        // --- REAL API HIT LOGIC ---
-        async function hitMukeshApi() {
-            const uid = document.getElementById('uidInput').value;
-            const btn = document.getElementById('sendBtn');
-            const res = document.getElementById('resBox');
-
-            if(!uid) return alert("Please enter a valid UID!");
-
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> BYPASSING SERVER...';
-            res.style.display = "block";
-            res.className = "success";
-            res.innerHTML = "Initializing API handshake...";
-
-            const targetUrl = `https://mukesh-ult-like.vercel.app/like?uid=${uid}&region=ind&key=UDIT`;
-            
-            // Dual Proxy Logic to prevent "Proxy Busy" Error
-            const proxies = [
-                "https://api.allorigins.win/get?url=",
-                "https://corsproxy.io/?"
-            ];
-
-            let success = false;
-
-            for(let proxy of proxies) {
-                try {
-                    const fetchUrl = proxy + encodeURIComponent(targetUrl);
-                    const response = await fetch(fetchUrl);
-                    const rawData = await response.json();
-                    
-                    // AllOrigins uses .contents, CORSProxy might be direct
-                    const data = rawData.contents ? JSON.parse(rawData.contents) : rawData;
-
-                    if(data.PlayerNickname || data.status == 2) {
-                        res.innerHTML = `
-                            <div style="color:var(--neon); font-weight:bold; margin-bottom:5px;">✅ REQUEST SUCCESSFUL</div>
-                            <b>NAME:</b> ${data.PlayerNickname}<br>
-                            <b>LEVEL:</b> ${data.Level}<br>
-                            <b>LIKES AFTER:</b> ${data.LikesafterCommand}<br>
-                            <b>REMAINING:</b> ${data.remaining}
-                        `;
-                        saveHit(data.PlayerNickname, data.UID);
-                        success = true;
-                        break; // Stop if success
-                    }
-                } catch (e) {
-                    console.log("Proxy switch...");
-                    continue; 
-                }
-            }
-
-            if(!success) {
-                res.className = "fail";
-                res.innerHTML = "<b>ERROR:</b> All proxies are busy. API is currently overloaded. Try again in 1 minute.";
-            }
-
+        } catch (error) {
+            showResponse("❌ Connection Failed. Check internet.", "#ff4757");
+        } finally {
             btn.disabled = false;
-            btn.innerHTML = "START BOOSTING";
+            btn.innerHTML = 'Send Free';
         }
+    }
 
-        // --- REAL DATA PERSISTENCE ---
-        function saveHit(name, uid) {
-            let logs = JSON.parse(localStorage.getItem('booster_logs')) || [];
-            logs.unshift({name, uid});
-            if(logs.length > 3) logs.pop();
-            localStorage.setItem('booster_logs', JSON.stringify(logs));
-            renderHits();
-        }
+    function showResponse(msg, color) {
+        const resBox = document.getElementById('responseBox');
+        resBox.style.display = "block";
+        resBox.style.backgroundColor = color + "22"; // Light transparent background
+        resBox.style.border = `1px solid ${color}`;
+        resBox.style.color = color;
+        resBox.innerHTML = msg;
+    }
+</script>
 
-        function renderHits() {
-            const box = document.getElementById('recentHits');
-            let logs = JSON.parse(localStorage.getItem('booster_logs')) || [];
-            if(logs.length === 0) return;
-            box.innerHTML = logs.map(l => `
-                <div class="user-row">
-                    <span><i class="fas fa-user-circle"></i> ${l.name}</span>
-                    <span class="status-badge">LIKES SENT</span>
-                </div>
-            `).join('');
-        }
-
-        // --- ONLINE COUNTER ---
-        setInterval(() => {
-            document.getElementById('onlineCount').innerText = Math.floor(Math.random() * (300 - 250) + 250);
-        }, 5000);
-
-    </script>
 </body>
 </html>
