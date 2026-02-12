@@ -3,168 +3,180 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Like Booster | Official System</title>
-    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
+    <title>Like Booster | Premium Panel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        :root { --neon: #00ff88; --dark: #050505; --card: #111; }
-        * { box-sizing: border-box; transition: 0.3s; }
-        body { font-family: 'Rajdhani', sans-serif; background: var(--dark); color: #fff; margin: 0; padding: 0; }
+        :root { --neon: #00ff88; --bg: #050505; --card: #111; --error: #ff3333; }
+        * { box-sizing: border-box; font-family: 'Rajdhani', sans-serif; }
+        body { background: var(--bg); color: #fff; margin: 0; overflow-x: hidden; }
         
-        /* Navbar & Real Count */
-        .navbar { background: var(--card); padding: 15px; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--neon); sticky top: 0; z-index: 1000; }
-        .live-dot { height: 10px; width: 10px; background: red; border-radius: 50%; display: inline-block; animation: blink 1s infinite; }
-        
-        /* Welcome Section */
-        .hero { padding: 40px 20px; text-align: center; background: linear-gradient(to bottom, #111, #050505); }
-        .hero h1 { color: var(--neon); letter-spacing: 2px; text-transform: uppercase; }
-        .instructions { background: rgba(0,255,136,0.05); border: 1px dashed var(--neon); padding: 15px; border-radius: 8px; max-width: 600px; margin: 15px auto; text-align: left; }
+        /* Header */
+        .navbar { background: var(--card); padding: 15px; border-bottom: 2px solid var(--neon); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 100; }
+        .live-tag { background: rgba(255, 0, 0, 0.2); color: #ff4444; padding: 4px 10px; border-radius: 20px; font-size: 0.9rem; border: 1px solid #ff4444; }
 
-        /* Forms */
-        .container { max-width: 500px; margin: 30px auto; padding: 0 20px; }
-        .card { background: var(--card); padding: 25px; border-radius: 15px; border: 1px solid #333; box-shadow: 0 0 20px rgba(0,0,0,0.5); }
-        input { width: 100%; padding: 12px; margin: 10px 0; background: #000; border: 1px solid #444; color: var(--neon); font-size: 1rem; border-radius: 5px; }
-        input:focus { border-color: var(--neon); outline: none; }
-        button { width: 100%; padding: 15px; background: var(--neon); color: #000; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 1rem; text-transform: uppercase; }
-        button:hover { box-shadow: 0 0 15px var(--neon); transform: translateY(-2px); }
-
-        /* API Result Box */
-        #responseBox { margin-top: 20px; text-align: left; font-size: 0.9rem; border-left: 3px solid var(--neon); padding: 10px; background: #000; display: none; }
+        .container { max-width: 480px; margin: 20px auto; padding: 10px; }
         
+        /* Glassmorphism Cards */
+        .card { background: var(--card); padding: 25px; border-radius: 15px; border: 1px solid #222; margin-bottom: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        h2 { margin-top: 0; color: var(--neon); text-transform: uppercase; font-size: 1.5rem; }
+        input { width: 100%; padding: 14px; margin: 10px 0; background: #000; border: 1px solid #333; color: var(--neon); font-size: 1.1rem; border-radius: 8px; text-align: center; outline: none; }
+        input:focus { border-color: var(--neon); box-shadow: 0 0 10px rgba(0,255,136,0.3); }
+        
+        button { width: 100%; padding: 15px; background: var(--neon); color: #000; border: none; font-weight: 700; border-radius: 8px; cursor: pointer; font-size: 1.1rem; transition: 0.3s; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px var(--neon); }
+        button:disabled { background: #444; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* API Response Styling */
+        #resBox { margin-top: 15px; padding: 15px; border-radius: 8px; text-align: left; font-size: 0.95rem; display: none; line-height: 1.6; border-left: 4px solid var(--neon); background: #000; }
+        .success { border-color: var(--neon) !important; color: #fff; }
+        .fail { border-color: var(--error) !important; color: var(--error); }
+
         /* Leaderboard */
-        .leaderboard { margin-top: 30px; }
-        .user-row { display: flex; justify-content: space-between; background: #1a1a1a; padding: 12px; margin-bottom: 5px; border-radius: 5px; border-left: 3px solid orange; }
+        .user-row { display: flex; justify-content: space-between; align-items: center; background: #1a1a1a; padding: 12px; margin-top: 8px; border-radius: 8px; border: 1px solid #222; }
+        .status-badge { color: var(--neon); font-size: 0.8rem; background: rgba(0,255,136,0.1); padding: 2px 8px; border-radius: 4px; }
 
         .hidden { display: none; }
-        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
 
     <div class="navbar">
-        <div style="font-size: 1.5rem; font-weight: bold;">L-BOOST <span style="color:var(--neon)">PRO</span></div>
-        <div><span class="live-dot"></span> Online: <span id="realCount">124</span></div>
-    </div>
-
-    <div class="hero">
-        <h1>Welcome to Like Booster</h1>
-        <div class="instructions">
-            <strong><i class="fas fa-info-circle"></i> HOW TO USE:</strong><br>
-            1. Niche scroll karke Registration/Login karein.<br>
-            2. "Get Free" Section mein apni Player UID daalein.<br>
-            3. API hit hone ke baad aapke account mein likes transfer ho jayenge.
-        </div>
+        <div style="font-size: 1.4rem; font-weight: 700;">L-BOOST <span style="color:var(--neon)">VIP</span></div>
+        <div class="live-tag"><i class="fas fa-users"></i> ONLINE: <span id="onlineCount">154</span></div>
     </div>
 
     <div class="container">
-        <div id="authBox" class="card">
-            <h2><i class="fas fa-lock"></i> ACCOUNT ACCESS</h2>
-            <input type="text" id="username" placeholder="Enter Username">
-            <input type="password" id="pass" placeholder="Enter Password">
-            <button onclick="doLogin()">LOGIN / REGISTER</button>
+        <div id="loginCard" class="card">
+            <h2><i class="fas fa-user-shield"></i> Admin Login</h2>
+            <p style="color: #666; font-size: 0.9rem;">Enter secret key to access the tool</p>
+            <input type="text" id="user" placeholder="Username">
+            <input type="password" id="pass" placeholder="Password">
+            <button onclick="handleLogin()">AUTHENTICATE</button>
         </div>
 
-        <div id="toolBox" class="card hidden">
-            <h2 style="color: var(--neon);"><i class="fas fa-rocket"></i> ACTIVATE TOOL</h2>
-            <p style="color: #888;">Direct API Connection Ready</p>
-            <input type="number" id="uidInput" placeholder="Enter Game UID (e.g. 5983423269)">
-            <button id="sendBtn" onclick="hitApi()">GET FREE LIKES</button>
-            
-            <div id="responseBox"></div>
+        <div id="toolCard" class="card hidden">
+            <h2><i class="fas fa-fire"></i> Get Free Likes</h2>
+            <p style="color: #666;">Enter UID and hit send</p>
+            <input type="number" id="uidInput" placeholder="ENTER PLAYER UID">
+            <button id="sendBtn" onclick="hitMukeshApi()">START BOOSTING</button>
+            <div id="resBox"></div>
         </div>
 
-        <div class="leaderboard">
-            <h3><i class="fas fa-fire" style="color: orange;"></i> LIVE RECENT HITS</h3>
-            <div id="userList">
-                <div class="user-row">System checking for live hits...</div>
+        <div class="card">
+            <h3 style="margin:0 0 10px 0;"><i class="fas fa-bolt" style="color: gold;"></i> LIVE RECENT SUCCESS</h3>
+            <div id="recentHits">
+                <div style="color:#444; padding: 10px;">Waiting for activity...</div>
             </div>
         </div>
     </div>
 
     <script>
-        // --- 1. Real User Count Logic ---
-        setInterval(() => {
-            // Fake logic for global feel, but stays around real numbers
-            let baseCount = Math.floor(Math.random() * (200 - 180) + 180);
-            document.getElementById('realCount').innerText = baseCount;
-        }, 4000);
+        // --- CONFIGURATION ---
+        const ADMIN_USER = "mukesh78";  // Change this
+        const ADMIN_PASS = "mukesh7878";   // Change this
 
-        // --- 2. Login Logic ---
-        function doLogin() {
-            const u = document.getElementById('username').value;
-            if(u.length < 3) return alert("Valid Username daalein!");
-            
-            document.getElementById('authBox').classList.add('hidden');
-            document.getElementById('toolBox').classList.remove('hidden');
-            loadRealHits();
-        }
-
-        // --- 3. Real API Hit Logic ---
-        async function hitApi() {
-            const uid = document.getElementById('uidInput').value;
-            const btn = document.getElementById('sendBtn');
-            const resBox = document.getElementById('responseBox');
-
-            if(!uid) return alert("UID missing!");
-
-            btn.disabled = true;
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> HITTING API...';
-            resBox.style.display = "block";
-            resBox.innerHTML = "Connecting to Server...";
-
-            // Proxy to prevent CORS errors (Using AllOrigins)
-            const proxy = "https://api.allorigins.win/get?url=";
-            const target = `https://mukesh-ult-like.vercel.app/like?uid=${uid}&region=ind&key=UDIT`;
-
-            try {
-                const response = await fetch(proxy + encodeURIComponent(target));
-                const json = await response.json();
-                const data = JSON.parse(json.contents); // Real API Data Extraction
-
-                if(data.status == 2 || data.PlayerNickname) {
-                    resBox.innerHTML = `
-                        <div style="color: var(--neon); font-weight: bold;">[ SUCCESSFUL ]</div>
-                        <div><b>Player:</b> ${data.PlayerNickname}</div>
-                        <div><b>Old Likes:</b> ${data.LikesbeforeCommand}</div>
-                        <div><b>New Likes:</b> ${data.LikesafterCommand}</div>
-                        <div><b>API Result:</b> ${data.LikesGivenByAPI} Likes Sent!</div>
-                    `;
-                    saveRealHit(data.PlayerNickname, data.UID);
-                } else {
-                    resBox.innerHTML = `<span style="color:red">API Error: UID Not Found or Limit Exceeded.</span>`;
-                }
-            } catch (error) {
-                resBox.innerHTML = `<span style="color:red">Network Error: Proxy is busy, try again in 10s.</span>`;
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = 'GET FREE LIKES';
+        // --- LOGIN LOGIC ---
+        function handleLogin() {
+            const u = document.getElementById('user').value;
+            const p = document.getElementById('pass').value;
+            if(u === ADMIN_USER && p === ADMIN_PASS) {
+                document.getElementById('loginCard').classList.add('hidden');
+                document.getElementById('toolCard').classList.remove('hidden');
+                renderHits();
+            } else {
+                alert("Incorrect Credentials! Access Denied.");
             }
         }
 
-        // --- 4. Real-Time Leaderboard (LocalStorage) ---
-        function saveRealHit(name, uid) {
-            let hits = JSON.parse(localStorage.getItem('real_hits')) || [];
-            hits.unshift({name, uid, time: 'Just Now'});
-            if(hits.length > 3) hits.pop(); // Sirf top 3 rakhega
-            localStorage.setItem('real_hits', JSON.stringify(hits));
-            loadRealHits();
-        }
+        // --- REAL API HIT LOGIC ---
+        async function hitMukeshApi() {
+            const uid = document.getElementById('uidInput').value;
+            const btn = document.getElementById('sendBtn');
+            const res = document.getElementById('resBox');
 
-        function loadRealHits() {
-            const list = document.getElementById('userList');
-            let hits = JSON.parse(localStorage.getItem('real_hits')) || [
-                {name: "LORAXx", uid: "5983423269", time: "Stable"},
-                {name: "RaiStar", uid: "12345678", time: "Stable"}
+            if(!uid) return alert("Please enter a valid UID!");
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> BYPASSING SERVER...';
+            res.style.display = "block";
+            res.className = "success";
+            res.innerHTML = "Initializing API handshake...";
+
+            const targetUrl = `https://mukesh-ult-like.vercel.app/like?uid=${uid}&region=ind&key=UDIT`;
+            
+            // Dual Proxy Logic to prevent "Proxy Busy" Error
+            const proxies = [
+                "https://api.allorigins.win/get?url=",
+                "https://corsproxy.io/?"
             ];
 
-            list.innerHTML = hits.map(h => `
+            let success = false;
+
+            for(let proxy of proxies) {
+                try {
+                    const fetchUrl = proxy + encodeURIComponent(targetUrl);
+                    const response = await fetch(fetchUrl);
+                    const rawData = await response.json();
+                    
+                    // AllOrigins uses .contents, CORSProxy might be direct
+                    const data = rawData.contents ? JSON.parse(rawData.contents) : rawData;
+
+                    if(data.PlayerNickname || data.status == 2) {
+                        res.innerHTML = `
+                            <div style="color:var(--neon); font-weight:bold; margin-bottom:5px;">✅ REQUEST SUCCESSFUL</div>
+                            <b>NAME:</b> ${data.PlayerNickname}<br>
+                            <b>LEVEL:</b> ${data.Level}<br>
+                            <b>LIKES AFTER:</b> ${data.LikesafterCommand}<br>
+                            <b>REMAINING:</b> ${data.remaining}
+                        `;
+                        saveHit(data.PlayerNickname, data.UID);
+                        success = true;
+                        break; // Stop if success
+                    }
+                } catch (e) {
+                    console.log("Proxy switch...");
+                    continue; 
+                }
+            }
+
+            if(!success) {
+                res.className = "fail";
+                res.innerHTML = "<b>ERROR:</b> All proxies are busy. API is currently overloaded. Try again in 1 minute.";
+            }
+
+            btn.disabled = false;
+            btn.innerHTML = "START BOOSTING";
+        }
+
+        // --- REAL DATA PERSISTENCE ---
+        function saveHit(name, uid) {
+            let logs = JSON.parse(localStorage.getItem('booster_logs')) || [];
+            logs.unshift({name, uid});
+            if(logs.length > 3) logs.pop();
+            localStorage.setItem('booster_logs', JSON.stringify(logs));
+            renderHits();
+        }
+
+        function renderHits() {
+            const box = document.getElementById('recentHits');
+            let logs = JSON.parse(localStorage.getItem('booster_logs')) || [];
+            if(logs.length === 0) return;
+            box.innerHTML = logs.map(l => `
                 <div class="user-row">
-                    <span><i class="fas fa-check-circle" style="color:var(--neon)"></i> ${h.name}</span>
-                    <span style="color:#888">UID: ${h.uid}</span>
+                    <span><i class="fas fa-user-circle"></i> ${l.name}</span>
+                    <span class="status-badge">LIKES SENT</span>
                 </div>
             `).join('');
         }
+
+        // --- ONLINE COUNTER ---
+        setInterval(() => {
+            document.getElementById('onlineCount').innerText = Math.floor(Math.random() * (300 - 250) + 250);
+        }, 5000);
+
     </script>
 </body>
 </html>
