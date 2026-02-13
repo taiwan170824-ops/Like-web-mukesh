@@ -1,172 +1,273 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Like Booster - Telegram Bot System</title>
-    <style>
-        /* Modern UI Design */
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Poppins', sans-serif; }
-        
-        body {
-            background: radial-gradient(circle at center, #2c3e50, #000000);
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-        }
+<meta charset="UTF-8">
+<title>Mukesh Guild Glory Bot</title>
+<style>
+body{
+margin:0;
+font-family:Arial;
+background:#0b0f1a;
+color:white;
+overflow-x:hidden;
+}
 
-        .main-container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 40px;
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            width: 90%;
-            max-width: 400px;
-            text-align: center;
-        }
+section{
+padding:80px 20px;
+text-align:center;
+}
 
-        h1 { font-size: 24px; margin-bottom: 10px; color: #00d2ff; text-transform: uppercase; letter-spacing: 2px; }
-        p { font-size: 14px; color: #ccc; margin-bottom: 30px; }
+h1{
+color:#00ffe1;
+text-shadow:0 0 15px #00ffe1;
+}
 
-        .input-group { position: relative; margin-bottom: 25px; }
+.btn{
+padding:12px 22px;
+margin:8px;
+border:none;
+border-radius:8px;
+background:#00ffe1;
+color:black;
+font-weight:bold;
+cursor:pointer;
+transition:.3s;
+}
 
-        input {
-            width: 100%;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid transparent;
-            border-radius: 12px;
-            color: white;
-            font-size: 16px;
-            outline: none;
-            transition: 0.3s;
-            text-align: center;
-        }
+.btn:hover{transform:scale(1.08)}
 
-        input:focus { border-color: #00d2ff; background: rgba(255, 255, 255, 0.15); }
+input{
+padding:10px;
+margin:8px;
+border-radius:6px;
+border:none;
+width:220px;
+}
 
-        button {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(45deg, #00d2ff, #3a7bd5);
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 18px;
-            font-weight: bold;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: 0.4s;
-            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
-        }
+.hidden{display:none}
 
-        button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 210, 255, 0.5);
-        }
+#dashboard{
+background:linear-gradient(135deg,#0b0f1a,#111a33);
+min-height:100vh;
+}
 
-        button:active { transform: translateY(0); }
+.console{
+background:black;
+color:#00ff00;
+padding:15px;
+margin-top:20px;
+height:220px;
+overflow:auto;
+text-align:left;
+font-family:monospace;
+border-radius:8px;
+}
 
-        #responseBox {
-            margin-top: 25px;
-            padding: 15px;
-            border-radius: 10px;
-            font-size: 14px;
-            display: none; /* Starting mein hidden rahega */
-            animation: fadeIn 0.5s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .loader {
-            border: 3px solid #f3f3f3;
-            border-top: 3px solid #00d2ff;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            animation: spin 1s linear infinite;
-            display: inline-block;
-            margin-right: 10px;
-            vertical-align: middle;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(3600deg); }
-        }
-    </style>
+footer{
+text-align:center;
+padding:20px;
+background:#060912;
+}
+</style>
 </head>
+
 <body>
 
-<div class="main-container">
-    <h1>Like Tool</h1>
-    <p>Enter UID to send /like command</p>
+<!-- INTRO -->
+<section>
+<h1>Mukesh Guild Glory Bot</h1>
+<p>Professional Guild Bot Service Website</p>
 
-    <div class="input-group">
-        <input type="number" id="uidInput" placeholder="Enter Player UID..." autocomplete="off">
-    </div>
+<button class="btn"
+onclick="window.open('https://youtu.be/nlQ5zc3JL0g')">
+Owner YouTube (YouTube)
+</button>
 
-    <button id="sendBtn" onclick="processRequest()">Send Free</button>
+<button class="btn"
+onclick="window.open('https://t.me/mukeshhhhhk')">
+Owner Telegram (Telegram)
+</button>
 
-    <div id="responseBox"></div>
+<button class="btn"
+onclick="window.open('https://youtu.be/nlQ5zc3JL0g')">
+Tutorial
+</button>
+
+<p style="opacity:.6">Scroll down ↓</p>
+</section>
+
+<!-- LOGIN / REGISTER -->
+<section>
+<h1>Get Access</h1>
+
+<div id="loginBox">
+<input id="loginUser" placeholder="Username"><br>
+<input id="loginPass" type="password" placeholder="Password"><br>
+<button class="btn" onclick="login()">Get Login</button>
 </div>
 
+<br>
+
+<div id="regBox">
+<input id="regUser" placeholder="Create Username"><br>
+<input id="regPass" type="password" placeholder="Create Password"><br>
+<button class="btn" onclick="register()">Register</button>
+</div>
+
+<p id="msg"></p>
+</section>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="hidden">
+<h1>Dashboard</h1>
+
+<p>Welcome <span id="userShow"></span></p>
+
+<button class="btn" onclick="addBots()">Add Bots</button>
+<button class="btn" onclick="getCredit()">Get Credit</button>
+<button class="btn" onclick="checkCredit()">Check Credit</button>
+<button class="btn" onclick="redeem()">Redeem Code</button>
+<button class="btn" onclick="adminLogin()">Admin Panel</button>
+
+<div class="console" id="console"></div>
+</section>
+
+<footer>
+Power by MuKesh-cRx87
+</footer>
+
 <script>
-    async function processRequest() {
-        const uid = document.getElementById('uidInput').value;
-        const btn = document.getElementById('sendBtn');
-        const resBox = document.getElementById('responseBox');
 
-        // Aapki details (Already filled)
-        const botToken = "8357146519:AAHPWcwJGQZSenI8zTBLPrHn2t2FESwhI0A";
-        const chatId = "8243523112";
+let serviceOn = true
 
-        if (!uid || uid.length < 5) {
-            showResponse("❌ Please enter a valid UID!", "#ff4757");
-            return;
-        }
+function register(){
+let u = regUser.value
+let p = regPass.value
+if(!u||!p) return msg.innerText="Fill all fields"
 
-        // Loading State
-        btn.disabled = true;
-        btn.innerHTML = '<span class="loader"></span> Processing...';
-        resBox.style.display = "none";
+localStorage.setItem("user",u)
+localStorage.setItem("pass",p)
+localStorage.setItem("credit",0)
 
-        // URL for Telegram Bot
-        const textMessage = `/like ${uid}`;
-        const url = `https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(textMessage)}`;
+msg.innerText="Registered successfully ✔"
+}
 
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
+function login(){
+let u = loginUser.value
+let p = loginPass.value
 
-            if (data.ok) {
-                showResponse(`✅ Command Sent!<br><b>/like ${uid}</b> has been hit to bot.`, "#2ed573");
-            } else {
-                showResponse("❌ Error: Bot token or ID is incorrect.", "#ff4757");
-            }
-        } catch (error) {
-            showResponse("❌ Connection Failed. Check internet.", "#ff4757");
-        } finally {
-            btn.disabled = false;
-            btn.innerHTML = 'Send Free';
-        }
-    }
+if(u===localStorage.getItem("user") &&
+   p===localStorage.getItem("pass")){
+document.getElementById("dashboard").classList.remove("hidden")
+userShow.innerText=u
+msg.innerText=""
+}else msg.innerText="Wrong username/password"
+}
 
-    function showResponse(msg, color) {
-        const resBox = document.getElementById('responseBox');
-        resBox.style.display = "block";
-        resBox.style.backgroundColor = color + "22"; // Light transparent background
-        resBox.style.border = `1px solid ${color}`;
-        resBox.style.color = color;
-        resBox.innerHTML = msg;
-    }
+function log(t){
+let c = document.getElementById("console")
+c.innerHTML += t+"<br>"
+c.scrollTop=c.scrollHeight
+}
+
+function addBots(){
+
+let credit = Number(localStorage.getItem("credit"))
+
+if(credit<=0){
+log("ERROR: No credit you have")
+return
+}
+
+if(!serviceOn){
+log("Currently bot stock not available...")
+return
+}
+
+let uid = prompt("Enter Guild UID")
+if(!uid) return
+
+let bots = prompt("Choose bots (2/4/8/12)")
+
+log("Mukesh Glory Bot connecting...")
+setTimeout(()=>log("You have chosen "+bots+" bots"),1000)
+setTimeout(()=>log("Bots connected successfully"),2000)
+
+for(let i=1;i<=bots;i++){
+let name="mukesh"+Math.floor(Math.random()*99)
+let id=Math.floor(Math.random()*999999999)
+setTimeout(()=>log(
+"Bot "+i+" name: "+name+" | UID: "+id),3000+i*800)
+}
+
+setTimeout(()=>log(
+"Request sent successfully. Accept in guild."),6000)
+
+localStorage.setItem("credit",credit-1)
+}
+
+function getCredit(){
+window.open("https://t.me/mukeshhhhhk")
+}
+
+function checkCredit(){
+alert("Your credit: "+localStorage.getItem("credit"))
+}
+
+function redeem(){
+
+let code = prompt("Enter redeem code")
+
+let saved = JSON.parse(localStorage.getItem("codes")||"{}")
+
+if(saved[code]){
+let now = Date.now()
+if(now > saved[code].exp){
+alert("Code expired")
+return
+}
+
+let c = Number(localStorage.getItem("credit"))
+localStorage.setItem("credit",c+saved[code].amount)
+alert("Redeem success ✔")
+}else alert("Invalid code")
+}
+
+function adminLogin(){
+
+let u = prompt("Admin Username")
+let p = prompt("Admin Password")
+
+if(u==="admin" && p==="admin123") adminPanel()
+else alert("Wrong admin login")
+}
+
+function adminPanel(){
+
+let action = prompt(
+"1 Generate Code\n2 OFF Service\n3 ON Service")
+
+if(action==1) genCode()
+if(action==2){serviceOn=false;alert("Service OFF")}
+if(action==3){serviceOn=true;alert("Service ON")}
+}
+
+function genCode(){
+
+let hrs = prompt("Validity hours (1-24)")
+let amount = prompt("Credit amount (1-10)")
+let code = prompt("Enter code name")
+
+let exp = Date.now() + hrs*3600000
+
+let data = JSON.parse(localStorage.getItem("codes")||"{}")
+data[code] = {amount:Number(amount),exp:exp}
+
+localStorage.setItem("codes",JSON.stringify(data))
+
+alert("Code generated ✔ : "+code)
+}
+
 </script>
 
 </body>
