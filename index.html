@@ -7,17 +7,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { background: #020205; color: #fff; font-family: 'Rajdhani', sans-serif; }
+        body { background: #020205; color: #fff; font-family: 'Rajdhani', sans-serif; overflow-x: hidden; }
         .glass { background: rgba(255, 255, 255, 0.02); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 20px; }
         .neon-cyan { text-shadow: 0 0 15px #00f2fe; color: #00f2fe; }
-        .page-screen { display: none; animation: slideUp 0.6s ease-out; }
-        .active-screen { display: block; }
-        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        .page-screen { display: none; }
+        .active-screen { display: block !important; animation: slideUp 0.5s ease-out; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         #console-log { scroll-behavior: smooth; height: 300px; }
-        
-        /* Custom scrollbar for console */
-        #console-log::-webkit-scrollbar { width: 4px; }
-        #console-log::-webkit-scrollbar-thumb { background: #00f2fe; border-radius: 10px; }
+        #console-log::-webkit-scrollbar { width: 3px; }
+        #console-log::-webkit-scrollbar-thumb { background: #00f2fe; }
     </style>
 </head>
 <body class="min-h-screen">
@@ -31,56 +29,57 @@
             <div class="text-right">
                 <span id="nav-credits" class="text-yellow-500 font-bold text-lg">0 CR</span>
             </div>
-            <button onclick="logout()" class="text-xs bg-red-900/30 p-1 px-3 py-1 border border-red-500/50 rounded hover:bg-red-600 transition">EXIT</button>
+            <button onclick="logout()" class="text-xs bg-red-900/30 p-1 px-3 py-1 border border-red-500/50 rounded">EXIT</button>
         </div>
     </nav>
 
     <section id="screen-intro" class="page-screen active-screen p-6">
         <div class="max-w-4xl mx-auto text-center py-20">
-            <h2 class="text-6xl font-black mb-4 italic italic tracking-tighter">ELITE <span class="text-cyan-500">GLORY</span></h2>
+            <h2 class="text-6xl font-black mb-4 italic tracking-tighter">ELITE <span class="text-cyan-500">GLORY</span></h2>
             <p class="text-gray-400 mb-10 max-w-lg mx-auto">The most advanced guild boosting infrastructure. Secured by Mukesh-cRx87 encryption.</p>
             
             <div class="flex flex-wrap justify-center gap-4 mb-12">
                 <a href="https://youtu.be/nlQ5zc3JL0g" target="_blank" class="glass px-8 py-4 hover:border-cyan-500 transition">YouTube</a>
                 <a href="https://t.me/mukeshhhhhk" target="_blank" class="glass px-8 py-4 hover:border-blue-500 transition">Telegram</a>
             </div>
-            <button onclick="showScreen('screen-auth')" class="bg-white text-black px-12 py-4 rounded-full font-bold hover:scale-105 transition">ACCESS TERMINAL</button>
+            <button onclick="showScreen('screen-auth')" class="bg-white text-black px-12 py-4 rounded-full font-bold hover:scale-105 transition shadow-lg shadow-white/10">ACCESS TERMINAL</button>
         </div>
     </section>
 
     <section id="screen-auth" class="page-screen p-6">
-        <div class="max-w-md mx-auto glass p-10 mt-10">
+        <div class="max-w-md mx-auto glass p-10 mt-10 shadow-2xl shadow-cyan-500/5">
             <div class="flex gap-6 mb-8 text-xl font-bold justify-center">
                 <button onclick="toggleAuthMode('login')" id="tab-login" class="text-cyan-400 border-b-2 border-cyan-400">LOGIN</button>
                 <button onclick="toggleAuthMode('reg')" id="tab-reg" class="text-gray-600">REGISTER</button>
             </div>
             <div class="space-y-4">
-                <input type="text" id="auth-user" placeholder="USERNAME" class="w-full bg-transparent border border-gray-800 p-4 rounded focus:border-cyan-500 outline-none">
-                <input type="password" id="auth-pass" placeholder="PASSWORD" class="w-full bg-transparent border border-gray-800 p-4 rounded focus:border-cyan-500 outline-none">
-                <button onclick="handleAuth()" class="w-full bg-cyan-600 py-4 rounded font-bold tracking-widest hover:bg-cyan-500 transition">INITIALIZE</button>
+                <input type="text" id="auth-user" placeholder="USERNAME" class="w-full bg-black/50 border border-gray-800 p-4 rounded focus:border-cyan-500 outline-none text-white">
+                <input type="password" id="auth-pass" placeholder="PASSWORD" class="w-full bg-black/50 border border-gray-800 p-4 rounded focus:border-cyan-500 outline-none text-white">
+                <button onclick="handleAuth()" class="w-full bg-cyan-600 py-4 rounded font-bold tracking-widest hover:bg-cyan-500 transition">INITIALIZE SESSION</button>
+                <button onclick="showScreen('screen-intro')" class="w-full text-gray-500 text-xs mt-2">← BACK</button>
             </div>
         </div>
     </section>
 
     <section id="screen-dashboard" class="page-screen p-6">
         <div class="max-w-5xl mx-auto">
-            <h2 class="text-2xl font-bold mb-8 italic">COMMANDER <span class="text-cyan-500">DASHBOARD</span></h2>
+            <h2 class="text-2xl font-bold mb-8 italic uppercase tracking-wider">Commander <span class="text-cyan-500">Panel</span></h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div onclick="showBotPanel()" class="glass p-8 cursor-pointer hover:bg-cyan-900/10 border-l-4 border-cyan-500 group">
+                <div onclick="showBotPanel()" class="glass p-8 cursor-pointer hover:bg-cyan-900/10 border-l-4 border-cyan-500 group transition-all">
                     <h3 class="text-2xl font-bold mb-2 group-hover:neon-cyan">ADD BOTS</h3>
-                    <p class="text-gray-500 text-sm">Deploy high-performance bots to your guild.</p>
+                    <p class="text-gray-500 text-sm">Inject premium bot clusters into your guild UID.</p>
                 </div>
-                <div onclick="showScreen('screen-redeem')" class="glass p-8 cursor-pointer hover:bg-purple-900/10 border-l-4 border-purple-500">
+                <div onclick="showScreen('screen-redeem')" class="glass p-8 cursor-pointer hover:bg-purple-900/10 border-l-4 border-purple-500 group transition-all">
                     <h3 class="text-2xl font-bold mb-2">REDEEM</h3>
-                    <p class="text-gray-500 text-sm">Apply voucher codes to increase CR.</p>
+                    <p class="text-gray-500 text-sm">Apply system vouchers to top-up credits.</p>
                 </div>
-                <div onclick="window.open('https://t.me/mukeshhhhhk')" class="glass p-8 cursor-pointer hover:bg-green-900/10 border-l-4 border-green-500">
+                <div onclick="window.open('https://t.me/mukeshhhhhk')" class="glass p-8 cursor-pointer hover:bg-green-900/10 border-l-4 border-green-500 group transition-all">
                     <h3 class="text-2xl font-bold mb-2">BUY CR</h3>
-                    <p class="text-gray-500 text-sm">Contact admin for bulk credits.</p>
+                    <p class="text-gray-500 text-sm">Purchase bulk credits from Mukesh admin.</p>
                 </div>
-                <div id="admin-card" onclick="showScreen('screen-admin')" class="hidden glass p-8 cursor-pointer border-l-4 border-red-500 bg-red-950/10">
+                <div id="admin-card" onclick="showScreen('screen-admin')" class="hidden glass p-8 cursor-pointer border-l-4 border-red-500 bg-red-950/10 transition-all">
                     <h3 class="text-2xl font-bold mb-2 text-red-500">ADMIN</h3>
-                    <p class="text-gray-500 text-sm">Control Service & Codes.</p>
+                    <p class="text-gray-500 text-sm">Control Service Status & Vouchers.</p>
                 </div>
             </div>
         </div>
@@ -88,27 +87,27 @@
 
     <section id="screen-addbot" class="page-screen p-6">
         <div class="max-w-2xl mx-auto glass p-8">
-            <button onclick="showScreen('screen-dashboard')" class="mb-6 text-gray-500 hover:text-white">← EXIT PANEL</button>
+            <button onclick="showScreen('screen-dashboard')" class="mb-6 text-gray-500 hover:text-white transition">← EXIT TERMINAL</button>
             <h2 class="text-3xl font-bold mb-8">BOT <span class="text-cyan-500">INJECTION</span></h2>
             
             <div class="space-y-6">
                 <div>
-                    <label class="text-xs text-gray-500 block mb-2 font-bold uppercase">GUILD IDENTIFIER (UID)</label>
-                    <input type="text" id="guild-id" placeholder="ENTER UID" class="w-full bg-black/40 border border-gray-800 p-4 rounded outline-none focus:border-cyan-500">
+                    <label class="text-xs text-cyan-500 block mb-2 font-bold">TARGET GUILD UID</label>
+                    <input type="text" id="guild-id" placeholder="PASTE UID HERE" class="w-full bg-black border border-gray-800 p-4 rounded outline-none focus:border-cyan-500">
                 </div>
                 <div>
-                    <label class="text-xs text-gray-500 block mb-2 font-bold uppercase">SELECT QUANTITY (PRICING)</label>
-                    <select id="bot-qty" class="w-full bg-black/40 border border-gray-800 p-4 rounded outline-none text-white">
+                    <label class="text-xs text-cyan-500 block mb-2 font-bold">SELECT PACKAGE</label>
+                    <select id="bot-qty" class="w-full bg-black border border-gray-800 p-4 rounded outline-none">
                         <option value="2" data-cost="4">2 BOTS — [ 4 CR ]</option>
                         <option value="4" data-cost="6">4 BOTS — [ 6 CR ]</option>
                         <option value="8" data-cost="8">8 BOTS — [ 8 CR ]</option>
                         <option value="12" data-cost="10">12 BOTS — [ 10 CR ]</option>
                     </select>
                 </div>
-                <button onclick="startBotInjection()" class="w-full bg-white text-black py-4 rounded font-bold hover:bg-cyan-400 transition uppercase">EXECUTE DEPLOYMENT</button>
+                <button onclick="startBotInjection()" class="w-full bg-white text-black py-4 rounded font-bold hover:bg-cyan-400 transition uppercase tracking-widest">Execute Injection</button>
             </div>
 
-            <div id="console-box" class="hidden mt-10 bg-black/80 border border-gray-800 rounded p-4 font-mono text-xs">
+            <div id="console-box" class="hidden mt-10 bg-black/90 border border-cyan-900 rounded p-4 font-mono text-[10px]">
                 <div id="console-log" class="overflow-y-auto space-y-1 text-cyan-500"></div>
             </div>
         </div>
@@ -117,87 +116,65 @@
     <section id="screen-redeem" class="page-screen p-6">
         <div class="max-w-md mx-auto glass p-10 text-center">
             <h2 class="text-2xl font-bold mb-6 italic">VOUCHER <span class="text-purple-500">TERMINAL</span></h2>
-            <input type="text" id="redeem-input" placeholder="ENTER VOUCHER CODE" class="w-full bg-transparent border border-gray-800 p-4 rounded mb-6 outline-none focus:border-purple-500 text-center font-bold tracking-widest">
-            <button onclick="processRedeem()" class="w-full bg-purple-600 py-4 rounded font-bold hover:bg-purple-500 transition">ACTIVATE CREDITS</button>
-            <button onclick="showScreen('screen-dashboard')" class="mt-4 text-gray-500 text-sm hover:text-white transition">BACK TO DASHBOARD</button>
+            <input type="text" id="redeem-input" placeholder="ENTER CODE" class="w-full bg-transparent border border-gray-800 p-4 rounded mb-6 outline-none focus:border-purple-500 text-center font-bold tracking-[0.5em]">
+            <button onclick="processRedeem()" class="w-full bg-purple-600 py-4 rounded font-bold hover:bg-purple-500">ACTIVATE VOUCHER</button>
+            <button onclick="showScreen('screen-dashboard')" class="mt-4 text-gray-500 text-sm hover:text-white">BACK</button>
         </div>
     </section>
 
     <section id="screen-admin" class="page-screen p-6">
-        <div class="max-w-3xl mx-auto glass p-8 border border-red-900/50 shadow-lg shadow-red-900/10">
+        <div class="max-w-3xl mx-auto glass p-8 border border-red-900/40 shadow-xl shadow-red-900/5">
             <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl font-bold text-red-500 underline underline-offset-8">SYSTEM ADMINISTRATION</h2>
-                <button onclick="showScreen('screen-dashboard')" class="bg-gray-800 px-4 py-2 rounded text-xs border border-gray-600 hover:bg-gray-700 transition">BACK</button>
+                <h2 class="text-2xl font-bold text-red-500">ADMIN CONTROL</h2>
+                <button onclick="showScreen('screen-dashboard')" class="bg-gray-800 px-4 py-2 rounded text-xs border border-gray-700 hover:bg-gray-700">BACK</button>
             </div>
             
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                <div class="space-y-4 glass p-6 border-red-900/20">
-                    <p class="font-bold uppercase text-xs text-red-400">Server Service Status</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="glass p-6 border-red-900/20">
+                    <p class="font-bold text-xs text-red-400 mb-4 uppercase">Stock Service</p>
                     <div class="flex gap-2">
-                        <button onclick="updateService(true)" class="flex-1 bg-green-600 px-6 py-3 rounded font-bold text-sm">SERVICE ON</button>
-                        <button onclick="updateService(false)" class="flex-1 bg-red-600 px-6 py-3 rounded font-bold text-sm">SERVICE OFF</button>
+                        <button onclick="updateService(true)" class="flex-1 bg-green-600 py-2 rounded font-bold">ON</button>
+                        <button onclick="updateService(false)" class="flex-1 bg-red-600 py-2 rounded font-bold">OFF</button>
                     </div>
                 </div>
-                <div class="space-y-4 glass p-6 border-cyan-900/20">
-                    <p class="font-bold uppercase text-xs text-cyan-400">Voucher Generator</p>
-                    <input type="text" id="gen-code" placeholder="CODE NAME" class="w-full bg-black p-3 rounded border border-gray-800 text-sm outline-none">
-                    <input type="number" id="gen-amt" placeholder="CREDIT AMOUNT" class="w-full bg-black p-3 rounded border border-gray-800 text-sm outline-none">
-                    <select id="gen-time" class="w-full bg-black p-3 rounded border border-gray-800 text-sm outline-none">
-                        <option value="1">Expire in 1 Hour</option>
-                        <option value="24">Expire in 24 Hours</option>
+                <div class="glass p-6 border-cyan-900/20">
+                    <p class="font-bold text-xs text-cyan-400 mb-4 uppercase">Code Generator</p>
+                    <input type="text" id="gen-code" placeholder="CODE NAME" class="w-full bg-black p-2 rounded border border-gray-800 text-xs mb-2">
+                    <input type="number" id="gen-amt" placeholder="CREDIT AMT" class="w-full bg-black p-2 rounded border border-gray-800 text-xs mb-2">
+                    <select id="gen-time" class="w-full bg-black p-2 rounded border border-gray-800 text-xs mb-3">
+                        <option value="1">1 Hour Expire</option>
+                        <option value="24">24 Hour Expire</option>
                     </select>
-                    <button onclick="generateAdminCode()" class="w-full bg-cyan-600 py-3 rounded font-bold hover:bg-cyan-500 transition">CREATE VOUCHER</button>
+                    <button onclick="generateAdminCode()" class="w-full bg-cyan-600 py-2 rounded font-bold text-xs">CREATE</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="mt-20 border-t border-gray-900 p-10 bg-black/20">
-        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between gap-10">
+    <footer class="mt-20 border-t border-gray-900 p-10 bg-black/40">
+        <div class="max-w-5xl mx-auto flex flex-col md:flex-row justify-between items-center gap-10">
             <div class="w-full md:w-1/2">
-                <h4 class="font-bold mb-4 uppercase text-xs tracking-widest text-gray-400">Public Live Feedback</h4>
-                <div id="comment-list" class="h-40 overflow-y-auto text-sm text-gray-500 mb-4 space-y-2 p-2 glass"></div>
+                <h4 class="font-bold mb-4 uppercase text-[10px] text-gray-500">Live Feedback</h4>
+                <div id="comment-list" class="h-32 overflow-y-auto text-xs text-gray-500 mb-4 space-y-2 p-2 glass"></div>
                 <div class="flex gap-2">
-                    <input type="text" id="comment-input" placeholder="Say something..." class="flex-1 bg-black/50 border border-gray-800 p-2 rounded text-sm outline-none focus:border-cyan-500">
-                    <button onclick="addComment()" class="bg-gray-800 px-6 py-2 rounded text-xs hover:bg-gray-700 transition">POST</button>
+                    <input type="text" id="comment-input" placeholder="Feedback..." class="flex-1 bg-black/50 border border-gray-800 p-2 rounded text-xs">
+                    <button onclick="addComment()" class="bg-gray-800 px-4 py-2 rounded text-xs">POST</button>
                 </div>
             </div>
             <div class="text-right">
                 <p class="text-3xl font-black neon-cyan italic">MuKesh-cRx87</p>
-                <p class="text-xs text-gray-600 tracking-tighter mt-2 italic uppercase">Developed for Elite Infrastructure</p>
-                <p class="text-[10px] text-gray-700 mt-1 uppercase tracking-[5px]">© 2024-2026</p>
+                <p class="text-xs text-gray-700 uppercase tracking-widest mt-2">Elite Infrastructure © 2026</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Core Logic
         let currentUser = null;
         let isServiceOn = true;
-        let authMode = 'login';
-        
-        // Fixed Local Storage Keys
-        const USER_KEY_PREFIX = 'u_';
-        const VOUCHER_DB = 'sys_vouchers_v3';
+        const USER_PREFIX = 'u_v3_';
+        const VOUCHER_KEY = 'v3_sys_vouchers';
 
-        // Load Vouchers
-        function getVouchers() {
-            return JSON.parse(localStorage.getItem(VOUCHER_DB)) || {};
-        }
-
-        function saveVouchers(vouchers) {
-            localStorage.setItem(VOUCHER_DB, JSON.stringify(vouchers));
-        }
-
-        // Live User Simulation
-        function updateLiveUserCount() {
-            let keys = Object.keys(localStorage);
-            let count = keys.filter(k => k.startsWith(USER_KEY_PREFIX)).length;
-            document.getElementById('live-user-count').innerText = 125 + count; // Base 125 + Real
-        }
-        setInterval(updateLiveUserCount, 5000);
-        updateLiveUserCount();
-
+        // Initializing screen visibility fix
         function showScreen(id) {
             document.querySelectorAll('.page-screen').forEach(s => s.classList.remove('active-screen'));
             const target = document.getElementById(id);
@@ -207,40 +184,47 @@
             }
         }
 
+        // Live User Count
+        function updateLiveCount() {
+            const users = Object.keys(localStorage).filter(k => k.startsWith(USER_PREFIX)).length;
+            document.getElementById('live-user-count').innerText = 442 + users;
+        }
+        setInterval(updateLiveCount, 5000);
+        updateLiveCount();
+
         function toggleAuthMode(mode) {
-            authMode = mode;
             document.getElementById('tab-login').className = mode === 'login' ? 'text-cyan-400 border-b-2 border-cyan-400' : 'text-gray-600';
             document.getElementById('tab-reg').className = mode === 'reg' ? 'text-cyan-400 border-b-2 border-cyan-400' : 'text-gray-600';
+            window.authMode = mode;
         }
+        window.authMode = 'login';
 
         function handleAuth() {
             const u = document.getElementById('auth-user').value.trim();
             const p = document.getElementById('auth-pass').value.trim();
-            if(!u || !p) return alert("All fields are mandatory!");
+            if(!u || !p) return alert("Fill all fields");
 
             if(u === 'admin' && p === 'mukesh87') {
                 currentUser = { name: 'ADMIN', credits: 9999, role: 'admin' };
                 document.getElementById('admin-card').classList.remove('hidden');
-                return loginDone();
+                return loginSuccess();
             }
 
-            if(authMode === 'reg') {
-                if(localStorage.getItem(USER_KEY_PREFIX + u)) return alert("User already exists!");
-                localStorage.setItem(USER_KEY_PREFIX + u, JSON.stringify({pass: p, credits: 0}));
-                alert("Account Created! Please login.");
+            if(window.authMode === 'reg') {
+                if(localStorage.getItem(USER_PREFIX + u)) return alert("User exists");
+                localStorage.setItem(USER_PREFIX + u, JSON.stringify({pass: p, credits: 0}));
+                alert("Registered! Now Login.");
                 toggleAuthMode('login');
             } else {
-                const data = JSON.parse(localStorage.getItem(USER_KEY_PREFIX + u));
+                const data = JSON.parse(localStorage.getItem(USER_PREFIX + u));
                 if(data && data.pass === p) {
                     currentUser = { name: u, credits: data.credits, role: 'user' };
-                    loginDone();
-                } else {
-                    alert("Authentication Failed! Check username/password.");
-                }
+                    loginSuccess();
+                } else { alert("Wrong credentials!"); }
             }
         }
 
-        function loginDone() {
+        function loginSuccess() {
             document.getElementById('user-stats').classList.remove('hidden');
             updateUI();
             showScreen('screen-dashboard');
@@ -250,73 +234,59 @@
             if(!currentUser) return;
             document.getElementById('nav-credits').innerText = currentUser.credits + " CR";
             if(currentUser.role !== 'admin') {
-                const data = JSON.parse(localStorage.getItem(USER_KEY_PREFIX + currentUser.name));
+                const data = JSON.parse(localStorage.getItem(USER_PREFIX + currentUser.name));
                 data.credits = currentUser.credits;
-                localStorage.setItem(USER_KEY_PREFIX + currentUser.name, JSON.stringify(data));
+                localStorage.setItem(USER_PREFIX + currentUser.name, JSON.stringify(data));
             }
+            updateLiveCount();
         }
 
         function showBotPanel() {
-            // Basic Requirement Check
-            if(currentUser.credits < 4 && currentUser.role !== 'admin') {
-                return alert("ERROR: Minimum 4 Credits (for 2 Bots) required to open this panel!");
-            }
+            if(currentUser.credits < 4 && currentUser.role !== 'admin') return alert("Minimum 4 CR needed!");
             showScreen('screen-addbot');
         }
 
         async function startBotInjection() {
             const gid = document.getElementById('guild-id').value.trim();
             const select = document.getElementById('bot-qty');
-            const qty = select.value;
             const cost = parseInt(select.options[select.selectedIndex].getAttribute('data-cost'));
             const logBox = document.getElementById('console-log');
 
-            if(!gid) return alert("Please enter a valid Guild UID!");
-
-            // Strict Credit Check
-            if(currentUser.credits < cost && currentUser.role !== 'admin') {
-                return alert(`INSUFFICIENT FUNDS! You need ${cost} CR. Current: ${currentUser.credits} CR.`);
-            }
+            if(!gid) return alert("Enter UID!");
+            if(currentUser.credits < cost && currentUser.role !== 'admin') return alert("Low Credits!");
 
             document.getElementById('console-box').classList.remove('hidden');
             logBox.innerHTML = "";
-            
             const wait = (ms) => new Promise(res => setTimeout(res, ms));
 
-            const initialLines = [
-                "Initializing Mukesh-cRx87 Terminal...",
-                "Bypassing Game Protection Layers...",
-                "Fetching Server Node Access...",
-                "Target Guild UID: " + gid,
-                "Requesting " + qty + " bot clusters...",
-                "Authorizing Credit Deduction: VERIFIED",
-                "Establishing secure bypass tunnel..."
+            const steps = [
+                "Terminal Handshake: OK",
+                "Encrypting UID Channel...",
+                "Bypassing Firebase-Auth...",
+                "Connecting to Mukesh Node-87...",
+                "Validating Credit Hash..."
             ];
 
-            // Super Slow Initial Loading
-            for(let line of initialLines) {
-                printToConsole(line);
-                await wait(5000); // 5 sec per line
+            for(let s of steps) {
+                printLog(s);
+                await wait(5000); // Super Slow
             }
 
-            // Service OFF Logic
             if(!isServiceOn) {
-                printToConsole("CRITICAL ERROR: Connection to Bot Server Failed!", "text-red-500 font-bold");
-                printToConsole("All bots are busy and no more stock please wait for stock.", "text-red-400 italic");
+                printLog("CRITICAL: BOT STOCK EMPTY!", "text-red-500");
+                printLog("All bots are busy and no more stock please wait for stock.", "text-red-400 font-bold");
                 return;
             }
 
-            // If Service ON - Continue Deployment
-            for(let i = 1; i <= qty; i++) {
-                printToConsole(`> DEPLOYING BOT NODE #${i}...`, "text-yellow-500");
-                await wait(6000); // 6 sec per bot deployment
-                printToConsole(`> NODE #${i} INJECTED SUCCESSFULLY!`, "text-green-500");
-                await wait(2000);
+            for(let i=1; i<=select.value; i++) {
+                printLog(`> DEPLOYING BOT NODE ${i}...`);
+                await wait(6000);
+                printLog(`> NODE ${i} INJECTED!`, "text-green-500");
             }
 
-            printToConsole("Cleaning traces and finalizing packets...", "text-cyan-300 italic");
-            await wait(4000);
-            printToConsole("SUCCESS: DEPLOYMENT COMPLETE!", "text-green-400 font-bold text-lg underline");
+            printLog("Deduction Complete. Finalizing.", "text-yellow-500");
+            await wait(3000);
+            printLog("SUCCESS: DEPLOYMENT STABLE!", "text-green-400 font-bold");
 
             if(currentUser.role !== 'admin') {
                 currentUser.credits -= cost;
@@ -324,47 +294,66 @@
             }
         }
 
-        function printToConsole(text, colorClass = "text-cyan-500") {
-            const logBox = document.getElementById('console-log');
+        function printLog(text, cls="text-cyan-500") {
             const p = document.createElement('p');
-            p.className = "mb-1 " + colorClass;
+            p.className = cls;
             p.innerText = ">> " + text;
-            logBox.appendChild(p);
-            logBox.scrollTop = logBox.scrollHeight;
+            const lb = document.getElementById('console-log');
+            lb.appendChild(p);
+            lb.scrollTop = lb.scrollHeight;
         }
 
         function processRedeem() {
-            const codeInput = document.getElementById('redeem-input').value.trim();
-            let vouchers = getVouchers();
-            const voucher = vouchers[codeInput];
+            const input = document.getElementById('redeem-input').value.trim();
+            const codes = JSON.parse(localStorage.getItem(VOUCHER_KEY)) || {};
+            const codeData = codes[input];
 
-            if(voucher) {
-                // Check Expiry
-                if(Date.now() > voucher.exp) {
-                    alert("ERROR: This voucher has expired!");
-                    delete vouchers[codeInput];
-                    saveVouchers(vouchers);
+            if(codeData) {
+                if(Date.now() > codeData.exp) {
+                    alert("Expired!");
+                    delete codes[input];
+                    localStorage.setItem(VOUCHER_KEY, JSON.stringify(codes));
                     return;
                 }
-
-                currentUser.credits += parseInt(voucher.amt);
-                delete vouchers[codeInput]; // One time use
-                saveVouchers(vouchers);
+                currentUser.credits += parseInt(codeData.amt);
+                delete codes[input];
+                localStorage.setItem(VOUCHER_KEY, JSON.stringify(codes));
                 updateUI();
-                alert(`SUCCESS! ${voucher.amt} Credits added to your terminal.`);
+                alert(`Added ${codeData.amt} CR!`);
                 showScreen('screen-dashboard');
                 document.getElementById('redeem-input').value = "";
-            } else {
-                alert("VOUCHER INVALID OR ALREADY USED!");
-            }
+            } else { alert("Invalid!"); }
         }
 
-        // Admin Functions
-        function updateService(status) {
-            isServiceOn = status;
-            alert("SYSTEM NOTIFICATION: Service is now " + (status ? "ONLINE" : "OFFLINE"));
+        function updateService(s) {
+            isServiceOn = s;
+            alert("Service: " + (s ? "ON" : "OFF"));
         }
 
         function generateAdminCode() {
-            const code = document.getElementById('gen-code').value.trim();
-            const amt = document.getElementById
+            const c = document.getElementById('gen-code').value.trim();
+            const a = document.getElementById('gen-amt').value.trim();
+            const t = document.getElementById('gen-time').value;
+            if(!c || !a) return alert("Fill data");
+
+            const codes = JSON.parse(localStorage.getItem(VOUCHER_KEY)) || {};
+            codes[c] = { amt: a, exp: Date.now() + (t * 3600000) };
+            localStorage.setItem(VOUCHER_KEY, JSON.stringify(codes));
+            alert("Code Created: " + c);
+        }
+
+        function addComment() {
+            const input = document.getElementById('comment-input');
+            if(!input.value) return;
+            const div = document.createElement('div');
+            div.className = "bg-white/5 p-2 rounded border-l border-cyan-500";
+            div.innerText = "User: " + input.value;
+            document.getElementById('comment-list').prepend(div);
+            input.value = "";
+        }
+
+        function logout() { location.reload(); }
+    </script>
+</body>
+                        </html>
+                        
