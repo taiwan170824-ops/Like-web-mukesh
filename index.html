@@ -1,390 +1,352 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mukesh-cRx87 Professional Bot Panel</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;500&display=swap" rel="stylesheet">
+    <title>MUKESH-cRx87 | PREMIUM BOT PANEL</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #00f2fe;
-            --secondary: #4facfe;
-            --bg: #0f0c29;
-            --dark: #1a1a2e;
-            --text: #ffffff;
-        }
-
         body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Roboto', sans-serif;
-            background: linear-gradient(to bottom, #0f0c29, #302b63, #24243e);
-            color: var(--text);
+            background: #050505;
+            color: #fff;
+            font-family: 'Rajdhani', sans-serif;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
-
-        /* Intro Section */
-        #intro {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            background: rgba(0,0,0,0.5);
-        }
-
-        .owner-info h1 { font-family: 'Orbitron'; font-size: 3rem; color: var(--primary); text-shadow: 0 0 10px var(--primary); }
-        
-        .btn-group { margin-top: 20px; }
-        .btn {
-            padding: 12px 25px;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .btn-yt { background: #ff0000; color: white; }
-        .btn-tg { background: #0088cc; color: white; }
-        .btn-tut { background: #ff9900; color: white; }
-
-        /* Auth Section */
-        #auth-section {
-            padding: 100px 20px;
-            text-align: center;
-            background: var(--dark);
-        }
-
-        .auth-card {
-            max-width: 400px;
-            margin: auto;
-            background: rgba(255,255,255,0.1);
-            padding: 30px;
-            border-radius: 15px;
+        .glass {
+            background: rgba(255, 255, 255, 0.03);
             backdrop-filter: blur(10px);
-            border: 1px solid var(--primary);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
         }
-
-        input {
-            width: 90%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: none;
-        }
-
-        /* Dashboard */
-        #dashboard {
-            display: none;
-            padding: 50px 20px;
-            animation: fadeIn 1s;
-        }
-
-        .gaming-theme {
-            background: rgba(0,0,0,0.8);
-            border: 2px solid var(--primary);
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 0 20px var(--secondary);
-        }
-
-        /* Console */
-        #console {
-            background: #000;
-            color: #0f0;
-            font-family: monospace;
-            padding: 15px;
-            height: 200px;
-            overflow-y: auto;
-            margin-top: 20px;
-            border: 1px solid #0f0;
-            display: none;
-            text-align: left;
-        }
-
-        footer {
-            padding: 50px;
-            text-align: center;
-            font-size: 1.2rem;
-            color: #aaa;
-        }
-
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+        .neon-text { text-shadow: 0 0 10px #00f2fe, 0 0 20px #00f2fe; }
+        .neon-border { border: 1px solid #4facfe; box-shadow: 0 0 15px rgba(79, 172, 254, 0.4); }
+        .page-screen { display: none; animation: fadeIn 0.5s ease; }
+        .active-screen { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
         
-        .hidden { display: none !important; }
+        /* Console Styling */
+        #console-log::-webkit-scrollbar { width: 5px; }
+        #console-log::-webkit-scrollbar-thumb { background: #4facfe; }
     </style>
 </head>
 <body>
 
-    <section id="intro">
-        <div class="owner-info">
-            <h1>MUKESH-cRx87</h1>
-            <p>Welcome to the Ultimate Guild Glory Panel</p>
-            <div class="btn-group">
-                <a href="https://youtu.be/nlQ5zc3JL0g" target="_blank" class="btn btn-yt">Owner YouTube</a>
-                <a href="https://t.me/mukeshhhhhk" target="_blank" class="btn btn-tg">Owner Telegram</a>
-                <a href="https://youtu.be/nlQ5zc3JL0g" target="_blank" class="btn btn-tut">Tutorial</a>
-            </div>
+    <nav class="p-5 flex justify-between items-center glass m-4 sticky top-0 z-50">
+        <h1 class="text-2xl font-bold neon-text">MUKESH-cRx87</h1>
+        <div id="user-stats" class="hidden text-right">
+            <span class="block text-xs uppercase text-gray-400">Balance</span>
+            <span id="nav-credits" class="text-cyan-400 font-bold text-xl">0 CR</span>
         </div>
-        <p style="margin-top: 50px; animate: bounce 2s infinite;">↓ Scroll Down to Start ↓</p>
+    </nav>
+
+    <section id="screen-intro" class="page-screen active-screen p-6 text-center">
+        <div class="max-w-4xl mx-auto mt-10">
+            <h2 class="text-5xl font-bold mb-4">GUILD GLORY <span class="text-cyan-500">BOOSTER</span></h2>
+            <p class="text-gray-400 mb-8">Professional grade automation for your gaming community.</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-10">
+                <a href="https://youtu.be/nlQ5zc3JL0g" class="glass p-6 hover:neon-border transition cursor-pointer">
+                    <h3 class="text-red-500 font-bold">YOUTUBE</h3>
+                    <p class="text-sm">Official Channel</p>
+                </a>
+                <a href="https://t.me/mukeshhhhhk" class="glass p-6 hover:neon-border transition cursor-pointer">
+                    <h3 class="text-blue-400 font-bold">TELEGRAM</h3>
+                    <p class="text-sm">Contact Owner</p>
+                </a>
+                <a href="https://youtu.be/nlQ5zc3JL0g" class="glass p-6 hover:neon-border transition cursor-pointer">
+                    <h3 class="text-yellow-500 font-bold">TUTORIAL</h3>
+                    <p class="text-sm">Watch Guide</p>
+                </a>
+            </div>
+            <button onclick="showScreen('screen-auth')" class="bg-cyan-600 px-10 py-3 rounded-full font-bold hover:bg-cyan-400 transition">GET STARTED / LOGIN</button>
+        </div>
     </section>
 
-    <section id="auth-section">
-        <div class="auth-card" id="register-box">
-            <h2>Register</h2>
-            <input type="text" id="reg-user" placeholder="Create Username">
-            <input type="password" id="reg-pass" placeholder="Create Password">
-            <button class="btn btn-tg" onclick="register()">Register Now</button>
-            <p onclick="toggleAuth()" style="cursor:pointer">Already have account? Login</p>
-        </div>
-
-        <div class="auth-card hidden" id="login-box">
-            <h2>Login</h2>
-            <input type="text" id="login-user" placeholder="Username">
-            <input type="password" id="login-pass" placeholder="Password">
-            <button class="btn btn-yt" onclick="login()">Login</button>
-            <p onclick="toggleAuth()" style="cursor:pointer">New here? Register</p>
+    <section id="screen-auth" class="page-screen p-6">
+        <div class="max-w-md mx-auto glass p-8">
+            <div id="auth-header" class="flex justify-around mb-6 border-b border-gray-700 pb-2">
+                <button onclick="toggleAuthMode('login')" id="btn-login-tab" class="text-cyan-400 font-bold">LOGIN</button>
+                <button onclick="toggleAuthMode('reg')" id="btn-reg-tab" class="text-gray-500">REGISTER</button>
+            </div>
+            
+            <div id="auth-inputs">
+                <input type="text" id="auth-user" placeholder="Username" class="w-full bg-black/50 border border-gray-700 p-3 rounded mb-4 focus:outline-none focus:border-cyan-500">
+                <input type="password" id="auth-pass" placeholder="Password" class="w-full bg-black/50 border border-gray-700 p-3 rounded mb-6">
+                <button id="auth-main-btn" onclick="handleAuth()" class="w-full bg-cyan-600 py-3 rounded font-bold">ENTER SYSTEM</button>
+            </div>
         </div>
     </section>
 
-    <div style="text-align:center; padding: 20px; background: #111;">
-        <h3>Recent Activity (Fake)</h3>
-        <p id="fake-activity">User mukesh*** just added 4 bots!</p>
-    </div>
-
-    <section id="dashboard">
-        <div class="gaming-theme">
-            <h1 style="font-family: 'Orbitron';">DASHBOARD</h1>
-            <p>Welcome: <span id="user-display" style="color:var(--primary)"></span></p>
-            <p>Credits: <span id="credit-display" style="color:gold">0</span></p>
-
-            <div class="btn-group">
-                <button class="btn btn-tg" onclick="showBotMenu()">Add Bots</button>
-                <button class="btn btn-tut" onclick="window.location.href='https://t.me/mukeshhhhhk'">Get Credit</button>
-                <button class="btn btn-yt" onclick="checkCredit()">Check Credit</button>
-                <button class="btn btn-tg" onclick="showRedeem()">Redeem Code</button>
-                <button class="btn btn-tut" id="admin-btn" onclick="showAdminPanel()" style="display:none">Admin Panel</button>
+    <section id="screen-dashboard" class="page-screen p-6">
+        <div class="max-w-5xl mx-auto">
+            <h2 class="text-3xl font-bold mb-6">WELCOME, <span id="display-name" class="text-cyan-400">USER</span></h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div onclick="checkAddBotAccess()" class="glass p-6 cursor-pointer hover:bg-white/5 transition group">
+                    <div class="h-12 w-12 bg-cyan-600 rounded mb-4 flex items-center justify-center">🤖</div>
+                    <h3 class="text-xl font-bold">ADD BOTS</h3>
+                    <p class="text-gray-400 text-sm">Deploy bots to your guild (Min. 2 CR)</p>
+                </div>
+                <div onclick="showScreen('screen-redeem')" class="glass p-6 cursor-pointer hover:bg-white/5 transition">
+                    <div class="h-12 w-12 bg-purple-600 rounded mb-4 flex items-center justify-center">🔑</div>
+                    <h3 class="text-xl font-bold">REDEEM CODE</h3>
+                    <p class="text-gray-400 text-sm">Add credits to your account</p>
+                </div>
+                <div onclick="window.open('https://t.me/mukeshhhhhk')" class="glass p-6 cursor-pointer hover:bg-white/5 transition">
+                    <div class="h-12 w-12 bg-green-600 rounded mb-4 flex items-center justify-center">💰</div>
+                    <h3 class="text-xl font-bold">GET CREDIT</h3>
+                    <p class="text-gray-400 text-sm">Buy more credits via owner</p>
+                </div>
+                <div id="admin-card" onclick="showScreen('screen-admin')" class="hidden glass p-6 border-red-500/50 cursor-pointer hover:bg-red-500/10 transition">
+                    <div class="h-12 w-12 bg-red-600 rounded mb-4 flex items-center justify-center">⚙️</div>
+                    <h3 class="text-xl font-bold">ADMIN PANEL</h3>
+                    <p class="text-gray-400 text-sm">Generate codes & manage</p>
+                </div>
             </div>
 
-            <div id="bot-menu" class="hidden" style="margin-top:30px; border-top: 1px solid #444; padding: 20px;">
-                <h3>Mukesh Guild Glory Bot</h3>
-                <input type="text" id="guild-uid" placeholder="Enter Guild UID">
-                <select id="bot-count" style="width: 100%; padding: 10px; margin: 10px 0;">
-                    <option value="2">2 Bots</option>
-                    <option value="4">4 Bots</option>
-                    <option value="8">8 Bots</option>
-                    <option value="12">12 Bots</option>
+            <div class="mt-10 glass p-4 text-center border-t-2 border-cyan-500">
+                <span class="text-cyan-400 mr-2">●</span> <span id="activity-text" class="text-sm text-gray-300">User Raj*** just redeemed 5 Credits</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="screen-addbot" class="page-screen p-6">
+        <div class="max-w-3xl mx-auto glass p-8">
+            <button onclick="showScreen('screen-dashboard')" class="text-gray-500 mb-4 hover:text-white">← Back</button>
+            <h2 class="text-2xl font-bold mb-6">DEPLOY BOTS</h2>
+            <div class="space-y-4">
+                <input type="text" id="guild-id" placeholder="Enter Guild UID" class="w-full bg-black border border-gray-700 p-3 rounded">
+                <select id="bot-qty" class="w-full bg-black border border-gray-700 p-3 rounded text-white">
+                    <option value="2">2 BOTS (Cost: 1 CR)</option>
+                    <option value="4">4 BOTS (Cost: 2 CR)</option>
+                    <option value="8">8 BOTS (Cost: 4 CR)</option>
+                    <option value="12">12 BOTS (Cost: 6 CR)</option>
                 </select>
-                <button class="btn btn-yt" onclick="startBotProcess()">Get Bots</button>
-                <div id="console"></div>
+                <button onclick="runBotConsole()" class="w-full bg-cyan-600 py-3 rounded font-bold shadow-lg shadow-cyan-500/20">INITIATE DEPLOYMENT</button>
             </div>
 
-            <div id="redeem-menu" class="hidden">
-                <input type="text" id="redeem-input" placeholder="Enter Redeem Code">
-                <button class="btn btn-tg" onclick="redeem()">Redeem Now</button>
-            </div>
-
-            <div id="admin-panel" class="hidden" style="background: #222; padding: 20px; border: 2px dashed red;">
-                <h2>Admin Control</h2>
-                <button class="btn btn-yt" onclick="setService(false)">Off Service</button>
-                <button class="btn btn-tg" onclick="setService(true)">On Service</button>
-                <hr>
-                <p>Gen Redeem Code:</p>
-                <select id="validity-select">
-                    <option value="1">1 Hour</option>
-                    <option value="24">24 Hours</option>
-                </select>
-                <input type="number" id="gen-credit-amt" placeholder="Credit Amount (1-10)">
-                <input type="text" id="gen-code-str" placeholder="Enter Code String">
-                <button class="btn btn-yt" onclick="generateCode()">Generate & Save</button>
-                <p id="gen-result"></p>
+            <div id="console-box" class="hidden mt-8 bg-black p-4 rounded border border-green-900 font-mono text-sm overflow-hidden">
+                <div id="console-log" class="h-64 overflow-y-auto text-green-500"></div>
             </div>
         </div>
     </section>
 
-    <footer>
-        <p>Power by MuKesh-cRx87</p>
+    <section id="screen-redeem" class="page-screen p-6">
+        <div class="max-w-md mx-auto glass p-8 text-center">
+            <h2 class="text-2xl font-bold mb-4">REDEEM VOUCHER</h2>
+            <input type="text" id="redeem-code" placeholder="Enter Code" class="w-full bg-black border border-gray-700 p-3 rounded mb-4">
+            <button onclick="handleRedeem()" class="w-full bg-purple-600 py-3 rounded font-bold">APPLY CODE</button>
+            <button onclick="showScreen('screen-dashboard')" class="mt-4 text-gray-500">Cancel</button>
+        </div>
+    </section>
+
+    <section id="screen-admin" class="page-screen p-6">
+        <div class="max-w-3xl mx-auto glass p-8">
+            <h2 class="text-2xl font-bold mb-6 text-red-500">ADMIN CONTROL UNIT</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="space-y-4">
+                    <label class="block text-sm">Service Status</label>
+                    <button onclick="toggleService(true)" class="bg-green-600 px-4 py-2 rounded">ON</button>
+                    <button onclick="toggleService(false)" class="bg-red-600 px-4 py-2 rounded">OFF</button>
+                </div>
+                <div class="space-y-4">
+                    <label class="block text-sm">Generate Code</label>
+                    <input type="text" id="gen-code" placeholder="Code Name" class="w-full bg-black p-2 rounded">
+                    <input type="number" id="gen-amt" placeholder="Credit Amount" class="w-full bg-black p-2 rounded">
+                    <select id="gen-time" class="w-full bg-black p-2 rounded">
+                        <option value="1">1 Hour</option>
+                        <option value="24">24 Hours</option>
+                    </select>
+                    <button onclick="adminGenCode()" class="w-full bg-white text-black font-bold p-2 rounded">GENERATE CODE</button>
+                </div>
+            </div>
+            <button onclick="showScreen('screen-dashboard')" class="mt-8 text-gray-500">← Back to Home</button>
+        </div>
+    </section>
+
+    <footer class="mt-20 p-10 bg-black/50 border-t border-gray-800">
+        <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div>
+                <h3 class="text-xl font-bold mb-4">LEAVE A COMMENT</h3>
+                <textarea id="comment-box" class="w-full bg-black border border-gray-700 p-3 rounded h-24 mb-3" placeholder="Write your feedback..."></textarea>
+                <button onclick="postComment()" class="bg-gray-700 px-6 py-2 rounded text-sm">POST COMMENT</button>
+                <div id="comment-list" class="mt-4 space-y-2 italic text-gray-500 text-sm"></div>
+            </div>
+            <div class="text-center md:text-right">
+                <p class="text-2xl font-bold neon-text">Mukesh-cRx87</p>
+                <p class="text-gray-500 text-sm">Copyright &copy; 2024-2026. All Rights Reserved.</p>
+                <p class="mt-4 text-xs tracking-widest uppercase">Powered by MUKESH-cRx87</p>
+            </div>
+        </div>
     </footer>
 
     <script>
-        // Global State
         let currentUser = null;
         let isServiceOn = true;
-        let activeCodes = JSON.parse(localStorage.getItem('codes')) || {};
+        let authMode = 'login';
+        let generatedCodes = JSON.parse(localStorage.getItem('sys_codes')) || {};
 
-        // Auth Logic
-        function toggleAuth() {
-            document.getElementById('login-box').classList.toggle('hidden');
-            document.getElementById('register-box').classList.toggle('hidden');
+        function showScreen(screenId) {
+            document.querySelectorAll('.page-screen').forEach(s => s.classList.remove('active-screen'));
+            document.getElementById(screenId).classList.add('active-screen');
+            window.scrollTo(0,0);
         }
 
-        function register() {
-            const u = document.getElementById('reg-user').value;
-            const p = document.getElementById('reg-pass').value;
-            if(u && p) {
-                localStorage.setItem(`user_${u}`, JSON.stringify({pass: p, credits: 0}));
-                alert("Registration Successful! Now Login.");
-                toggleAuth();
-            }
+        function toggleAuthMode(mode) {
+            authMode = mode;
+            document.getElementById('btn-login-tab').className = mode === 'login' ? 'text-cyan-400 font-bold' : 'text-gray-500';
+            document.getElementById('btn-reg-tab').className = mode === 'reg' ? 'text-cyan-400 font-bold' : 'text-gray-500';
+            document.getElementById('auth-main-btn').innerText = mode === 'login' ? 'ENTER SYSTEM' : 'CREATE ACCOUNT';
         }
 
-        function login() {
-            const u = document.getElementById('login-user').value;
-            const p = document.getElementById('login-pass').value;
-            
-            // Special Admin Login
+        function handleAuth() {
+            const u = document.getElementById('auth-user').value;
+            const p = document.getElementById('auth-pass').value;
+
+            if(!u || !p) return alert("Details bharo!");
+
             if(u === 'admin' && p === 'mukesh87') {
-                currentUser = {user: 'admin', credits: 999};
-                document.getElementById('admin-btn').style.display = 'inline-block';
-                enterDashboard();
-                return;
+                currentUser = { name: 'Mukesh (Admin)', credits: 9999, role: 'admin' };
+                document.getElementById('admin-card').classList.remove('hidden');
+                return loginSuccess();
             }
 
-            const userData = JSON.parse(localStorage.getItem(`user_${u}`));
-            if(userData && userData.pass === p) {
-                currentUser = {user: u, credits: userData.credits};
-                enterDashboard();
+            if(authMode === 'reg') {
+                localStorage.setItem(`u_${u}`, JSON.stringify({pass: p, credits: 0}));
+                alert("Account Created! Please Login.");
+                toggleAuthMode('login');
             } else {
-                alert("Invalid Username or Password!");
+                const data = JSON.parse(localStorage.getItem(`u_${u}`));
+                if(data && data.pass === p) {
+                    currentUser = { name: u, credits: data.credits, role: 'user' };
+                    loginSuccess();
+                } else {
+                    alert("Galat password ya username!");
+                }
             }
         }
 
-        function enterDashboard() {
-            document.getElementById('auth-section').style.display = 'none';
-            document.getElementById('intro').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
-            document.getElementById('user-display').innerText = currentUser.user;
-            updateCreditDisplay();
+        function loginSuccess() {
+            document.getElementById('user-stats').classList.remove('hidden');
+            document.getElementById('display-name').innerText = currentUser.name.toUpperCase();
+            updateUI();
+            showScreen('screen-dashboard');
         }
 
-        // Bot Logic
-        function showBotMenu() {
-            document.getElementById('bot-menu').classList.toggle('hidden');
+        function updateUI() {
+            document.getElementById('nav-credits').innerText = currentUser.credits + " CR";
+            if(currentUser.role !== 'admin') {
+                const data = JSON.parse(localStorage.getItem(`u_${currentUser.name}`));
+                data.credits = currentUser.credits;
+                localStorage.setItem(`u_${currentUser.name}`, JSON.stringify(data));
+            }
         }
 
-        async function startBotProcess() {
-            const uid = document.getElementById('guild-uid').value;
-            const count = document.getElementById('bot-count').value;
-            const consoleDiv = document.getElementById('console');
+        function checkAddBotAccess() {
+            // Requirement: Min 2 credits to open
+            if(currentUser.credits < 2 && currentUser.role !== 'admin') {
+                alert("Error: Minimum 2 Credits required to access Bot Panel!");
+            } else {
+                showScreen('screen-addbot');
+            }
+        }
 
-            if(!uid) return alert("Guild UID dalo!");
+        async function runBotConsole() {
+            const gid = document.getElementById('guild-id').value;
+            const qty = document.getElementById('bot-qty').value;
+            const logBox = document.getElementById('console-log');
             
-            if(currentUser.credits <= 0 && currentUser.user !== 'admin') {
-                alert("Error: No credit you have!");
-                return;
-            }
+            if(!gid) return alert("Guild UID dalo!");
+            if(!isServiceOn) return alert("Service is currently OFF by Admin.");
 
-            if(!isServiceOn) {
-                consoleDiv.style.display = 'block';
-                consoleDiv.innerHTML = "<p style='color:red'>Currently bot stock not available please wait.. until next 1-2 hours</p>";
-                return;
-            }
-
-            consoleDiv.style.display = 'block';
-            consoleDiv.innerHTML = "";
+            document.getElementById('console-box').classList.remove('hidden');
+            logBox.innerHTML = "";
             
-            const lines = [
-                "Mukesh Glory Bot connecting...",
-                `You have chosen ${count} bots`,
-                "Bots connect successfully...",
+            const steps = [
+                "Establishing secure connection to server...",
+                "Proxy initialized: 192.168.1.44:8080",
+                "Injecting Mukesh-cRx87 script...",
+                `Target Guild: ${gid} identified.`,
+                `Requesting ${qty} bots deployment...`,
+                "Bypassing security layers [██████████] 100%",
+                "Handshaking with game database...",
+                "Generating bot profiles..."
             ];
 
-            for(let i=1; i<=count; i++) {
-                lines.push(`Bot ${i} name is mukesh${Math.floor(Math.random()*99)}`);
-                lines.push(`Uid is ${Math.floor(Math.random()*9999999999)}`);
+            for(let i=1; i<=qty; i++) {
+                steps.push(`Bot-Node ${i}: MUKESH_${Math.floor(Math.random()*999)} (UID: ${Math.floor(Math.random()*99999999)})`);
+                steps.push(`Bot-Node ${i}: Injected successfully.`);
             }
 
-            lines.push("Request send successfully!");
-            lines.push("Go to your guild & accept request.");
-            lines.push("Thanks for using this website power by mukesh");
+            steps.push("Finalizing packets...", "Deployment Complete!", "Thanks for using Mukesh-cRx87 Panel.");
 
-            for(let line of lines) {
-                let p = document.createElement('p');
-                p.innerText = "> " + line;
-                consoleDiv.appendChild(p);
-                consoleDiv.scrollTop = consoleDiv.scrollHeight;
-                await new Promise(r => setTimeout(r, 1000));
+            // Loop takes approx 30 seconds
+            const delay = 30000 / steps.length;
+
+            for(let text of steps) {
+                const p = document.createElement('p');
+                p.className = "mb-1 border-l-2 border-cyan-500 pl-2";
+                p.innerText = `> ${text}`;
+                logBox.appendChild(p);
+                logBox.scrollTop = logBox.scrollHeight;
+                await new Promise(r => setTimeout(r, delay));
             }
 
-            if(currentUser.user !== 'admin') {
-                currentUser.credits--;
-                saveUser();
-                updateCreditDisplay();
+            if(currentUser.role !== 'admin') {
+                currentUser.credits -= 1; // Deducting 1 credit as fee
+                updateUI();
             }
         }
 
-        // Credit & Redeem
-        function showRedeem() {
-            document.getElementById('redeem-menu').classList.toggle('hidden');
-        }
-
-        function redeem() {
-            const code = document.getElementById('redeem-input').value;
-            if(activeCodes[code]) {
-                const amt = activeCodes[code].amt;
-                currentUser.credits += parseInt(amt);
-                delete activeCodes[code]; // One time use
-                localStorage.setItem('codes', JSON.stringify(activeCodes));
-                saveUser();
-                updateCreditDisplay();
-                alert(`Success! ${amt} credits added.`);
+        function handleRedeem() {
+            const code = document.getElementById('redeem-input')?.value || document.getElementById('redeem-code').value;
+            if(generatedCodes[code]) {
+                const amt = parseInt(generatedCodes[code].amt);
+                currentUser.credits += amt;
+                delete generatedCodes[code];
+                localStorage.setItem('sys_codes', JSON.stringify(generatedCodes));
+                updateUI();
+                alert(`Success! ${amt} CR added to your wallet.`);
+                showScreen('screen-dashboard');
             } else {
-                alert("Error: Invalid or Expired Code!");
+                alert("Invalid or Expired Code!");
             }
         }
 
-        function checkCredit() {
-            alert(`Aapke pass abhi ${currentUser.credits} real credits hain.`);
-        }
-
-        // Admin Functions
-        function showAdminPanel() {
-            document.getElementById('admin-panel').classList.toggle('hidden');
-        }
-
-        function setService(status) {
-            isServiceOn = status;
-            alert(status ? "Service ON ho gayi" : "Service OFF ho gayi");
-        }
-
-        function generateCode() {
-            const code = document.getElementById('gen-code-str').value;
-            const amt = document.getElementById('gen-credit-amt').value;
-            const hrs = document.getElementById('validity-select').value;
-
-            if(code && amt) {
-                activeCodes[code] = {amt: amt, expiry: Date.now() + (hrs * 3600000)};
-                localStorage.setItem('codes', JSON.stringify(activeCodes));
-                document.getElementById('gen-result').innerHTML = `✅ Generated: ${code} <br> Validity: ${hrs}hr 🎉`;
+        function adminGenCode() {
+            const c = document.getElementById('gen-code').value;
+            const a = document.getElementById('gen-amt').value;
+            if(c && a) {
+                generatedCodes[c] = { amt: a };
+                localStorage.setItem('sys_codes', JSON.stringify(generatedCodes));
+                alert("Code Generated Successfully!");
             }
         }
 
-        // Helpers
-        function saveUser() {
-            if(currentUser.user !== 'admin') {
-                const data = JSON.parse(localStorage.getItem(`user_${currentUser.user}`));
-                data.credits = currentUser.credits;
-                localStorage.setItem(`user_${currentUser.user}`, JSON.stringify(data));
-            }
+        function toggleService(val) {
+            isServiceOn = val;
+            alert("Service Status Updated!");
         }
 
-        function updateCreditDisplay() {
-            document.getElementById('credit-display').innerText = currentUser.credits;
+        function postComment() {
+            const val = document.getElementById('comment-box').value;
+            if(val) {
+                const p = document.createElement('p');
+                p.innerText = `User: ${val}`;
+                document.getElementById('comment-list').prepend(p);
+                document.getElementById('comment-box').value = "";
+            }
         }
 
         // Fake Activity Loop
         setInterval(() => {
-            const users = ['Rahul', 'Amit', 'Sohail', 'Mukesh', 'Gamer'];
-            const botCount = [2, 4, 8, 12];
-            const randUser = users[Math.floor(Math.random()*users.length)];
-            const randBot = botCount[Math.floor(Math.random()*botCount.length)];
-            document.getElementById('fake-activity').innerText = `User ${randUser}*** just added ${randBot} bots!`;
-        }, 5000);
+            const names = ['Sahil', 'Arjun', 'DarkLord', 'BotExpert', 'King'];
+            const n = names[Math.floor(Math.random()*names.length)];
+            const act = ["redeemed 10 CR", "deployed 8 bots", "joined Telegram", "updated profile"];
+            document.getElementById('activity-text').innerText = `User ${n}*** just ${act[Math.floor(Math.random()*act.length)]}`;
+        }, 7000);
     </script>
 </body>
-</html>
+    </html>
+    
